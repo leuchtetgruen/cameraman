@@ -17,16 +17,20 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import de.leuchtetgruen.cameraman.R
+import de.leuchtetgruen.cameraman.navigation.Screen
 
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+
 
         var username by rememberSaveable(stateSaver = TextFieldValue.Saver) {
             mutableStateOf(TextFieldValue(""))
@@ -38,7 +42,9 @@ fun LoginScreen() {
 
         Icon(painter = painterResource(id = R.drawable.camera_reels),
             contentDescription = "Camera reel",
-            modifier = Modifier.width(48.dp).height(48.dp) )
+            modifier = Modifier
+                .width(48.dp)
+                .height(48.dp) )
 
         Text("CameraMan",
             fontSize = 48.sp,
@@ -60,7 +66,7 @@ fun LoginScreen() {
         )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { navController.navigate(Screen.MapScreen.route) },
             modifier = Modifier.padding(16.dp)) {
             Text("Login")
         }

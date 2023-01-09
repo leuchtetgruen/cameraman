@@ -5,8 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import de.leuchtetgruen.cameraman.presentation.login.LoginScreen
-import de.leuchtetgruen.cameraman.presentation.map.MapScreen
+import de.leuchtetgruen.cameraman.navigation.Navigation
 import de.leuchtetgruen.cameraman.ui.theme.CameraManTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CameraManTheme {
-                //MapScreen()
+                Navigation()
             }
         }
     }
@@ -26,6 +25,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     CameraManTheme {
-        LoginScreen()
+        Navigation()
     }
 }
