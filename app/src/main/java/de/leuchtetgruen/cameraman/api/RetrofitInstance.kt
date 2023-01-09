@@ -1,6 +1,5 @@
 package de.leuchtetgruen.cameraman.api
 
-import android.util.Log
 import de.leuchtetgruen.cameraman.api.network_model.LoginObject
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -9,12 +8,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RetrofitInstance {
-    var token : String? = null;
+    var token : String? = null
+    var refreshToken : String? = null
+
     val api by lazy {
         val client = OkHttpClient.Builder().addInterceptor { chain ->
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer $token")
-                .build()
+            val builder = chain.request().newBuilder()
+
+            if (!chain.request().url().url().path.contains("/api/token/refresh", true)) {
+                builder.addHeader("Authorization", "Bearer $token")
+            }
+
+            val newRequest: Request = builder.build()
             chain.proceed(newRequest)
         }.build()
 
@@ -27,15 +32,27 @@ object RetrofitInstance {
     }
 
      suspend fun login(username : String, password : String) : Boolean {
-        val apiTokenResponse =  RetrofitInstance.api.login(LoginObject(username, password))
+        val apiTokenResponse =  api.login(LoginObject(username, password))
         //TODO errorhandling
         if (apiTokenResponse.errorBody() != null) {
-            return false;
+            return false
         }
 
-        val token : String? = apiTokenResponse.body()?.token
-        this.token = token
-        Log.v("TOKEN", token.toString())
-        return true;
+        this.token = apiTokenResponse.body()?.token
+        this.refreshToken = apiTokenResponse.body()?.refresh_token
+
+        return true
+     }
+
+    suspend fun eventuallyRefreshToken(refreshToken : String) {
+        if (this.token != null) {
+            return
+        }
+
+        val apiTokenResponse =  api.refreshToken(refreshToken)
+
+        this.token = apiTokenResponse.body()?.token
+        this.refreshToken = apiTokenResponse.body()?.refresh_token
     }
+
 }
