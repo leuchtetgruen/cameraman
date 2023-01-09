@@ -5,11 +5,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -19,7 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import de.leuchtetgruen.cameraman.R
+import de.leuchtetgruen.cameraman.api.RetrofitInstance
 import de.leuchtetgruen.cameraman.navigation.Screen
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -31,6 +30,7 @@ fun LoginScreen(navController: NavController) {
     ) {
 
 
+        val coroutineScope = rememberCoroutineScope()
 
         var username by rememberSaveable(stateSaver = TextFieldValue.Saver) {
             mutableStateOf(TextFieldValue(""))
@@ -38,6 +38,15 @@ fun LoginScreen(navController: NavController) {
 
         var password by rememberSaveable(stateSaver = TextFieldValue.Saver) {
             mutableStateOf(TextFieldValue(""))
+        }
+
+         fun doLogin() {
+             coroutineScope.launch {
+                val success = RetrofitInstance.login(username.text, password.text)
+                 if (success) {
+                     navController.navigate(Screen.MapScreen.route)
+                 }
+             }
         }
 
         Icon(painter = painterResource(id = R.drawable.camera_reels),
@@ -66,10 +75,9 @@ fun LoginScreen(navController: NavController) {
         )
 
         Button(
-            onClick = { navController.navigate(Screen.MapScreen.route) },
+            onClick = { doLogin() },
             modifier = Modifier.padding(16.dp)) {
             Text("Login")
         }
-
     }
 }
