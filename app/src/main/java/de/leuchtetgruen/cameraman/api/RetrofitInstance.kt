@@ -1,6 +1,6 @@
 package de.leuchtetgruen.cameraman.api
 
-import de.leuchtetgruen.cameraman.api.network_model.LoginObject
+import de.leuchtetgruen.cameraman.api.network_model.LoginObjectDto
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
@@ -32,7 +32,7 @@ object RetrofitInstance {
     }
 
      suspend fun login(username : String, password : String) : Boolean {
-        val apiTokenResponse =  api.login(LoginObject(username, password))
+        val apiTokenResponse =  api.login(LoginObjectDto(username, password))
         //TODO errorhandling
         if (apiTokenResponse.errorBody() != null) {
             return false
