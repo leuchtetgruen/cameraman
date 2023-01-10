@@ -51,6 +51,12 @@ object RetrofitInstance {
 
         val apiTokenResponse =  api.refreshToken(refreshToken)
 
+        val errorBody = apiTokenResponse.errorBody()
+        if (errorBody != null) {
+            throw  Exception("Error while refreshing token")
+        }
+
+
         this.token = apiTokenResponse.body()?.token
         this.refreshToken = apiTokenResponse.body()?.refresh_token
     }
