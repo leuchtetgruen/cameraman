@@ -1,23 +1,25 @@
 package de.leuchtetgruen.cameraman.presentation.map
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.List
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
+import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
+import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
+import kotlinx.coroutines.launch
 
 class MapsViewModel : ViewModel() {
-    var state by mutableStateOf(MapState())
+    var shotDescriptions = mutableListOf<ShotDescription>()
+    var centeredLatLng = mutableStateOf(LatLng(52.0, 13.0))
 
-    fun floatingButtonImageVector() : ImageVector {
-        return if (state.shouldShowDoneJobs) {
-            Icons.Default.CheckCircle
+    fun load() {
+        viewModelScope.launch {
+            shotDescriptions.clear()
+            shotDescriptions.addAll(ShotDescriptionRepository.loadShotDescriptions())
         }
-        else {
-            Icons.Default.List
-        }
+    }
+
+    fun moveToPositionOfShot(shotDescription: ShotDescription) {
+        centeredLatLng.value = LatLng(shotDescription.lat, shotDescription.lng)
     }
 }

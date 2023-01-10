@@ -1,18 +1,17 @@
 package de.leuchtetgruen.cameraman.presentation.map
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.MapUiSettings
-import de.leuchtetgruen.cameraman.api.RetrofitInstance
-import kotlinx.coroutines.launch
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.*
 
 /*
 https://www.youtube.com/watch?v=0rc75uR0CNs
@@ -24,26 +23,40 @@ fun MapScreen(
     viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
 ) {
     val scaffoldState = rememberScaffoldState()
-    Scaffold(
-        scaffoldState = scaffoldState,
-        floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = viewModel.floatingButtonImageVector(), contentDescription = "Toggle done shots" )
-            }
-        }
 
+    viewModel.load()
+
+    Scaffold(
+        scaffoldState = scaffoldState
     ) {
         val uiSettings by remember {
-            mutableStateOf(MapUiSettings(zoomControlsEnabled = false, myLocationButtonEnabled = true))
+            mutableStateOf(MapUiSettings(zoomControlsEnabled = true, myLocationButtonEnabled = true))
         }
         val properties by remember {
           mutableStateOf(MapProperties(isMyLocationEnabled = false))
         }
 
+        val cameraPositionState = rememberCameraPositionState {
+            position = CameraPosition.fromLatLngZoom(viewModel.centeredLatLng.value, 10f)
+        }
+
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             properties = properties,
-            uiSettings = uiSettings
-        )
+            uiSettings = uiSettings,
+            cameraPositionState = cameraPositionState
+        ) {
+            viewModel.shotDescriptions.forEach {
+                val shotDescription = it
+                Marker(
+                    state = MarkerState(position = LatLng(it.lat, it.lng)),
+                    title = "Shot",
+                    snippet = it.description,
+                    onInfoWindowClick = {
+                        viewModel.moveToPositionOfShot(shotDescription)
+                    }
+                )
+            }
+        }
     }
 }
