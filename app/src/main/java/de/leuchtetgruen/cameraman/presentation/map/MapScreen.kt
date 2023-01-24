@@ -54,7 +54,7 @@ fun MapScreen(
                     snippet = it.description,
                     onInfoWindowClick = {
                         viewModel.moveToPositionOfShot(shotDescription)
-                    }
+                    },
                 )
             }
         }

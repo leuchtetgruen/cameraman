@@ -16,7 +16,7 @@ class MapsViewModel : ViewModel() {
     fun load() {
         viewModelScope.launch {
             shotDescriptions.clear()
-            val shotDescriptionsApi = ShotDescriptionRepository.loadShotDescriptions()
+            val shotDescriptionsApi = ShotDescriptionRepository.loadShotDescriptions().filter { it.hasLocation() }
             shotDescriptions.addAll(shotDescriptionsApi)
         }
     }

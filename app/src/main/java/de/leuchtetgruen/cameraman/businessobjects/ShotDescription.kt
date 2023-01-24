@@ -6,4 +6,8 @@ data class ShotDescription(
     val lat: Double,
     val lng: Double
 ) {
+
+    fun hasLocation() : Boolean {
+        return (lat != 0.0) && (lng != 0.0)
+    }
 }
