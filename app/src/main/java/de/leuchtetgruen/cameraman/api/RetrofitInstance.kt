@@ -25,10 +25,10 @@ object RetrofitInstance {
 
         Retrofit.Builder()
             .client(client)
-            .baseUrl("http://192.168.1.17:8000/")
+            .baseUrl("https://api.cousteau.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ScriptWriterApi::class.java)
+            .create(CousteauApi::class.java)
     }
 
      suspend fun login(username : String, password : String) : Boolean {

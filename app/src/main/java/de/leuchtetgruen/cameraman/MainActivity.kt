@@ -34,6 +34,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        else {
+            loading.value = false
+        }
         setContent {
             CameraManTheme {
                 if (loading.value || !error.value.isNullOrBlank()) {

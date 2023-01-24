@@ -1,5 +1,6 @@
 package de.leuchtetgruen.cameraman.presentation.map
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,13 +10,14 @@ import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
 import kotlinx.coroutines.launch
 
 class MapsViewModel : ViewModel() {
-    var shotDescriptions = mutableListOf<ShotDescription>()
+    var shotDescriptions = mutableStateListOf<ShotDescription>()
     var centeredLatLng = mutableStateOf(LatLng(52.0, 13.0))
 
     fun load() {
         viewModelScope.launch {
             shotDescriptions.clear()
-            shotDescriptions.addAll(ShotDescriptionRepository.loadShotDescriptions())
+            val shotDescriptionsApi = ShotDescriptionRepository.loadShotDescriptions()
+            shotDescriptions.addAll(shotDescriptionsApi)
         }
     }
 
