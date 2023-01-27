@@ -1,7 +1,7 @@
 package de.leuchtetgruen.cameraman.businessobjects
 
 data class ShotDescription(
-    val id: Number,
+    val id: Int,
     val description: String,
     val done: Boolean,
     val lat: Double,

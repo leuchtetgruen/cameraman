@@ -4,6 +4,7 @@ import de.leuchtetgruen.cameraman.api.RetrofitInstance
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
 
 object ShotDescriptionRepository {
+    private var shotDescriptions : List<ShotDescription> = listOf();
     suspend fun loadShotDescriptions() : List<ShotDescription> {
         val apiResponse = RetrofitInstance.api.shotDescriptions()
 
@@ -16,7 +17,7 @@ object ShotDescriptionRepository {
         }
 
         val shotDescriptionDtos = apiResponse.body()
-        return shotDescriptionDtos!!.map {
+        this.shotDescriptions = shotDescriptionDtos!!.map {
             ShotDescription(
                 it.id,
                 it.description,
@@ -25,5 +26,10 @@ object ShotDescriptionRepository {
                 it.lng
             )
         }
+        return this.shotDescriptions
+    }
+
+    fun getShotWithId(id: Int) : ShotDescription? {
+        return this.shotDescriptions.find { it.id == id }
     }
 }

@@ -15,11 +15,14 @@ fun ShotScreen(navController: NavController,
                viewModel: ShotViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
 
     viewModel.navController = navController
+    viewModel.loadShot(id.toInt())
     
     Column(        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Text(text = id)
+
+        val description = if (viewModel.shotDescription != null) viewModel.shotDescription?.description else "foo"
+        Text(text = description ?: "bar")
     }
 }
