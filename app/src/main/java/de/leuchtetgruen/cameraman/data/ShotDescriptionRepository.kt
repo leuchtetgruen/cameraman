@@ -18,6 +18,7 @@ object ShotDescriptionRepository {
         val shotDescriptionDtos = apiResponse.body()
         return shotDescriptionDtos!!.map {
             ShotDescription(
+                it.id,
                 it.description,
                 it.done,
                 it.lat,

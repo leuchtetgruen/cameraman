@@ -1,6 +1,7 @@
 package de.leuchtetgruen.cameraman.api.network_model
 
 data class ShotDescriptionDto(
+    val id: Number,
     val description: String,
     val done: Boolean,
     val lat: Double,
