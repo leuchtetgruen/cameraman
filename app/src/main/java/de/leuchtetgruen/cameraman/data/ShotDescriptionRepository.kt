@@ -23,7 +23,8 @@ object ShotDescriptionRepository {
                 it.description,
                 it.done,
                 it.lat,
-                it.lng
+                it.lng,
+                it.imageUrl,
             )
         }
         return this.shotDescriptions

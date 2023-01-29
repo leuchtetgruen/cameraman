@@ -5,7 +5,8 @@ data class ShotDescription(
     val description: String,
     val done: Boolean,
     val lat: Double,
-    val lng: Double
+    val lng: Double,
+    val imageUrl : String?,
 ) {
 
     fun hasLocation() : Boolean {

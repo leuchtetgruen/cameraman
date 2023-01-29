@@ -7,5 +7,6 @@ data class ShotDescriptionDto(
     val lat: Double,
     val lng: Double,
     val paragraphIris: List<String>,
-    val ref: String
+    val ref: String,
+    val imageUrl: String?,
 )
