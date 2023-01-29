@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
 import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.navigation.Screen
@@ -21,14 +22,22 @@ class MapsViewModel : ViewModel() {
             shotDescriptions.clear()
             val shotDescriptionsApi = ShotDescriptionRepository.loadShotDescriptions().filter { it.hasLocation() }
             shotDescriptions.addAll(shotDescriptionsApi)
-        }
-    }
 
-    fun moveToPositionOfShot(shotDescription: ShotDescription) {
-        centeredLatLng.value = LatLng(shotDescription.lat, shotDescription.lng)
+            centeredLatLng.value =  boundsForShotDescriptions().center
+        }
     }
 
     fun selectedShotOnMap(shotDescription: ShotDescription) {
         navController?.navigate(Screen.ShotScreen.routeWithId(shotDescription.id))
+    }
+
+    fun boundsForShotDescriptions() : LatLngBounds {
+        val builder = LatLngBounds.builder()
+        shotDescriptions.forEach {
+            if (it.lat != 0.0) {
+                builder.include(LatLng(it.lat, it.lng))
+            }
+        }
+        return builder.build()
     }
 }
