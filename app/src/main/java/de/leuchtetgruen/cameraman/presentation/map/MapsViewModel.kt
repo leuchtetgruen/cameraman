@@ -13,6 +13,7 @@ import de.leuchtetgruen.cameraman.navigation.Screen
 import kotlinx.coroutines.launch
 
 class MapsViewModel : ViewModel() {
+    var showDoneItems = mutableStateOf(false)
     var navController : NavController? = null
     var shotDescriptions = mutableStateListOf<ShotDescription>()
     var centeredLatLng = mutableStateOf(LatLng(52.0, 13.0))
@@ -20,7 +21,9 @@ class MapsViewModel : ViewModel() {
     fun load() {
         viewModelScope.launch {
             shotDescriptions.clear()
-            val shotDescriptionsApi = ShotDescriptionRepository.loadShotDescriptions().filter { it.hasLocation() }
+            val shotDescriptionsApi = ShotDescriptionRepository.loadShotDescriptions().filter {
+                it.hasLocation() && (showDoneItems.value || !it.done)
+            }
             shotDescriptions.addAll(shotDescriptionsApi)
 
             centeredLatLng.value =  boundsForShotDescriptions().center

@@ -17,4 +17,12 @@ class ShotViewModel : ViewModel() {
         val test = ShotDescriptionRepository.getShotWithId(id)
         shotDescription = test
     }
+
+    fun markAsDone() {
+
+    }
+
+    fun markAsToDo() {
+
+    }
 }

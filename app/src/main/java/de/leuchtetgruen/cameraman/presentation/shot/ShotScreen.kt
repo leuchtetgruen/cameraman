@@ -1,21 +1,17 @@
 package de.leuchtetgruen.cameraman.presentation.shot
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.glide.GlideImage
 import de.leuchtetgruen.cameraman.R
 
 @Composable
@@ -25,40 +21,56 @@ fun ShotScreen(navController: NavController,
 
     viewModel.navController = navController
     viewModel.loadShot(id.toInt())
+
+    if  (viewModel.shotDescription == null) return
     
     
     Column(        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        if (viewModel.shotDescription?.imageUrl != null) {
-            GlideImage(
-                imageModel = { viewModel.shotDescription?.imageUrl },
-                imageOptions = ImageOptions(
-                    contentScale = ContentScale.Crop,
-                    alignment = Alignment.Center
-                ),
-                modifier = Modifier.height(300.dp),
-            )
-        }
-        else {
-            Image(imageVector = ImageVector.vectorResource(id = R.drawable.default_image_shot),
-                contentDescription = "Placeholder image for shot",
-                modifier = Modifier.height(300.dp), )
-        }
+        ShotImage(shotDescription = viewModel.shotDescription)
 
         Spacer(modifier = Modifier.height(30.dp))
 
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(PaddingValues(20.dp))) {
 
 
-        val style = MaterialTheme.typography.h4.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
+            val style = MaterialTheme.typography.h4.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
 
-        val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title() else "Shot Description"
-        Text(text = title!!, style = style)
+            val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title() else "Shot Description"
+            Text(text = title!!, style = style, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
 
-        Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-        val description = if (viewModel.shotDescription != null) viewModel.shotDescription?.description else "foo"
-        Text(text = description ?: "bar")
+            val description = if (viewModel.shotDescription != null) viewModel.shotDescription?.description else "foo"
+            Text(text = description ?: "bar")
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            //TODO export color to color scheme
+            if (!viewModel.shotDescription!!.done) {
+                Button(onClick = { viewModel.markAsDone() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(116, 166, 100), contentColor = Color.White)) {
+                    Icon(painter = painterResource(id = R.drawable.check_white),
+                        contentDescription = "Check mark",
+                        modifier = Modifier.padding(end=16.dp))
+                    Text("Als erledigt markieren")
+                }
+            }
+            else{
+                Button(onClick = { viewModel.markAsToDo() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(244, 21, 73), contentColor = Color.White)) {
+                    Icon(painter = painterResource(id = R.drawable.cancel_white),
+                        contentDescription = "Check mark",
+                        modifier = Modifier.padding(end=16.dp))
+                    Text("Auf nicht erledigt setzen")
+                }
+            }
+
+        }
+        
+
+
     }
 }
