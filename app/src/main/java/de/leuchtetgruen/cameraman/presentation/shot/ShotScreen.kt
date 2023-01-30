@@ -10,11 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
-
 import de.leuchtetgruen.cameraman.R
 
 @Composable
@@ -50,9 +51,10 @@ fun ShotScreen(navController: NavController,
 
 
 
+        val style = MaterialTheme.typography.h4.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
 
         val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title() else "Shot Description"
-        Text(text = title!!, style = MaterialTheme.typography.h4)
+        Text(text = title!!, style = style)
 
         Spacer(modifier = Modifier.height(30.dp))
 
