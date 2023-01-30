@@ -10,6 +10,8 @@ import com.google.android.gms.maps.model.LatLngBounds
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
 import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.navigation.Screen
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class MapsViewModel : ViewModel() {
@@ -17,6 +19,9 @@ class MapsViewModel : ViewModel() {
     var navController : NavController? = null
     var shotDescriptions = mutableStateListOf<ShotDescription>()
     var centeredLatLng = mutableStateOf(LatLng(52.0, 13.0))
+
+    private val _toastMessage = MutableSharedFlow<String>()
+    val toastMessage = _toastMessage.asSharedFlow()
 
     fun load() {
         viewModelScope.launch {
@@ -42,5 +47,18 @@ class MapsViewModel : ViewModel() {
             }
         }
         return builder.build()
+    }
+
+    fun toggleShowAllItems() {
+        this.showDoneItems.value = !this.showDoneItems.value
+        load()
+
+        val msg =  if (this.showDoneItems.value) "Zeige alle Aufnahmen" else "Zeige nur unerledigte Aufnahmen"
+
+        viewModelScope.launch {
+            _toastMessage.emit(msg)
+        }
+
+
     }
 }

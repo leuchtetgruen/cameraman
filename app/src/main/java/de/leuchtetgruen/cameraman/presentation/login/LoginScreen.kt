@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import de.leuchtetgruen.cameraman.R
+import de.leuchtetgruen.cameraman.ui.theme.FontFamilyHeadline
 import kotlinx.coroutines.launch
 
 
@@ -37,7 +38,7 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
             }
         }
 
-        Icon(painter = painterResource(id = R.drawable.camera_reels),
+        Icon(painter = painterResource(id = R.drawable.pen_48_red),
             contentDescription = "Camera reel",
             modifier = Modifier
                 .width(48.dp)
@@ -45,12 +46,14 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
 
         Text("Cousteau",
             fontSize = 48.sp,
-            modifier = Modifier.padding(16.dp))
+            modifier = Modifier.padding(16.dp),
+            fontFamily = FontFamilyHeadline)
 
         TextField(
             value = viewModel.username,
             onValueChange = { viewModel.username = it },
             label = { Text("Username") },
+            placeholder = { Text("Username")},
             modifier = Modifier.padding(16.dp)
         )
 
@@ -66,14 +69,15 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
             Text("Could not login successfully", modifier = Modifier.padding(16.dp), color = Color.Red)
         }
 
-        Row() {
+        Row(Modifier.fillMaxWidth().padding(16.dp)) {
             if (viewModel.loading) {
                 CircularProgressIndicator(modifier = Modifier.padding(16.dp))
             }
 
             Button(
                 onClick = { doLogin() },
-                modifier = Modifier.padding(16.dp)) {
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            ) {
                 Text("Login")
             }
         }
