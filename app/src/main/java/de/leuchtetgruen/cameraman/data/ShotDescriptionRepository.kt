@@ -25,6 +25,7 @@ object ShotDescriptionRepository {
                 it.lat,
                 it.lng,
                 it.imageUrl,
+                it.linkedMediaUrl,
             )
         }
         return this.shotDescriptions

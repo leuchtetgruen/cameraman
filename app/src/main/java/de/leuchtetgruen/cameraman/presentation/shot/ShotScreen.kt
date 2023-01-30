@@ -2,6 +2,7 @@ package de.leuchtetgruen.cameraman.presentation.shot
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,7 +46,13 @@ fun ShotScreen(navController: NavController,
                 modifier = Modifier.height(300.dp), )
         }
 
+        Spacer(modifier = Modifier.height(30.dp))
 
+
+
+
+        val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title() else "Shot Description"
+        Text(text = title!!, style = MaterialTheme.typography.h4)
 
         Spacer(modifier = Modifier.height(30.dp))
 

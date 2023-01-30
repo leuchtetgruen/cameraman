@@ -9,4 +9,5 @@ data class ShotDescriptionDto(
     val paragraphIris: List<String>,
     val ref: String,
     val imageUrl: String?,
+    val linkedMediaUrl: String?,
 )
