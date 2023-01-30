@@ -9,4 +9,8 @@ sealed class Screen(val route : String) {
             return route
         }
     }
+
+    object AddSourceScreen : Screen("add_source")
+
+    object ShowScriptsScreen : Screen("show_scripts")
 }

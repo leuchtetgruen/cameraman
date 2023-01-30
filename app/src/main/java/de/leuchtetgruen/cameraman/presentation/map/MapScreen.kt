@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import de.leuchtetgruen.cameraman.R
+import de.leuchtetgruen.cameraman.presentation.navigation.AppBottomNavigation
 import de.leuchtetgruen.cameraman.ui.theme.FontFamilyHeadline
 import kotlinx.coroutines.launch
 
@@ -41,21 +42,35 @@ fun MapContent(
         }
     }
 
-    Scaffold(Modifier.fillMaxSize(), floatingActionButton = {
-        FloatingActionButton(onClick = { viewModel.toggleShowAllItems() }) {
-            if (viewModel.showDoneItems.value) {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_filter_alt_off_24), contentDescription = "Should not show all items" )
-            }
-            else {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_filter_alt_24), contentDescription = "Should show all items" )
-            }
+    Scaffold(modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            FloatingActionButton(onClick = { viewModel.toggleShowAllItems() }) {
+                if (viewModel.showDoneItems.value) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_filter_alt_off_24),
+                        contentDescription = "Should not show all items"
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_filter_alt_24),
+                        contentDescription = "Should show all items"
+                    )
+                }
 
-        }
-    }, floatingActionButtonPosition = FabPosition.End) {
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End,
+        bottomBar = { AppBottomNavigation(navController) }
+    ) {
         System.out.println(it)
 
         val uiSettings by remember {
-            mutableStateOf(MapUiSettings(zoomControlsEnabled = false, myLocationButtonEnabled = true))
+            mutableStateOf(
+                MapUiSettings(
+                    zoomControlsEnabled = false,
+                    myLocationButtonEnabled = true
+                )
+            )
         }
         val properties by remember {
             mutableStateOf(MapProperties(isMyLocationEnabled = true))
@@ -75,7 +90,8 @@ fun MapContent(
             uiSettings = uiSettings,
             cameraPositionState = cameraPositionState
         ) {
-            cameraPositionState.position = CameraPosition.fromLatLngZoom(viewModel.centeredLatLng.value, 12.0f)
+            cameraPositionState.position =
+                CameraPosition.fromLatLngZoom(viewModel.centeredLatLng.value, 12.0f)
 
 
 
@@ -98,6 +114,7 @@ fun MapContent(
 
     }
 }
+
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MapScreen(navController: NavController) {
@@ -111,16 +128,21 @@ fun MapScreen(navController: NavController) {
     if (fineLocationpermissionState.status.isGranted) {
         MapContent(navController = navController)
     } else {
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(painter = painterResource(id = R.drawable.pen_48_red),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.pen_48_red),
                 contentDescription = "Camera reel",
                 modifier = Modifier
                     .width(48.dp)
-                    .height(48.dp) )
+                    .height(48.dp)
+            )
 
-            Text("Cousteau",
+            Text(
+                "Cousteau",
                 fontSize = 48.sp,
                 modifier = Modifier.padding(16.dp),
                 fontFamily = FontFamilyHeadline
@@ -136,7 +158,10 @@ fun MapScreen(navController: NavController) {
                 // permission is required
                 "Um die App zu nutzen, musst du die Berechtigung für den Standortzugriff geben "
             }
-            Text(textToShow, Modifier.fillMaxWidth().padding(16.dp), textAlign = TextAlign.Center)
+            Text(textToShow,
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp), textAlign = TextAlign.Center)
             Button(onClick = { fineLocationpermissionState.launchPermissionRequest() }) {
                 Text("Berechtigungsdialog anzeigen")
             }
