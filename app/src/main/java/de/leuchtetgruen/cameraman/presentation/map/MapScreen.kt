@@ -1,13 +1,20 @@
 package de.leuchtetgruen.cameraman.presentation.map
 
-import androidx.compose.foundation.layout.Column
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
+import de.leuchtetgruen.cameraman.R
 import kotlinx.coroutines.launch
 
 /*
@@ -20,15 +27,34 @@ fun MapScreen(
     navController: NavController,
     viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
 ) {
-
+    val coroutineScope = rememberCoroutineScope()
     viewModel.load()
 
-    Column(Modifier.fillMaxSize()) {
+    val ctx = LocalContext.current
+    LaunchedEffect(Unit) {
+        viewModel.toastMessage.collect {
+            Toast.makeText(ctx, it, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    Scaffold(Modifier.fillMaxSize(), floatingActionButton = {
+        FloatingActionButton(onClick = { viewModel.toggleShowAllItems() }) {
+            if (viewModel.showDoneItems.value) {
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_filter_alt_off_24), contentDescription = "Should not show all items" )
+            }
+            else {
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_filter_alt_24), contentDescription = "Should show all items" )
+            }
+
+        }
+    }, floatingActionButtonPosition = FabPosition.End) {
+        System.out.println(it)
+
         val uiSettings by remember {
-            mutableStateOf(MapUiSettings(zoomControlsEnabled = true, myLocationButtonEnabled = true))
+            mutableStateOf(MapUiSettings(zoomControlsEnabled = false, myLocationButtonEnabled = true))
         }
         val properties by remember {
-          mutableStateOf(MapProperties(isMyLocationEnabled = false))
+            mutableStateOf(MapProperties(isMyLocationEnabled = false))
         }
 
 
@@ -38,7 +64,7 @@ fun MapScreen(
 
         viewModel.navController = navController
 
-        val coroutineScope = rememberCoroutineScope()
+
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             properties = properties,
@@ -62,7 +88,5 @@ fun MapScreen(
                 )
             }
         }
-
-
     }
 }
