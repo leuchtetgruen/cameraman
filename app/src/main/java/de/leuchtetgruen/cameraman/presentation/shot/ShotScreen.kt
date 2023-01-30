@@ -38,7 +38,7 @@ fun ShotScreen(navController: NavController,
             .padding(PaddingValues(20.dp))) {
 
 
-            val style = MaterialTheme.typography.h4.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
+            val style = MaterialTheme.typography.h5.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
 
             val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title() else "Shot Description"
             Text(text = title!!, style = style, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())

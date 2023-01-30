@@ -43,7 +43,7 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
                 .width(48.dp)
                 .height(48.dp) )
 
-        Text("CameraMan",
+        Text("Cousteau",
             fontSize = 48.sp,
             modifier = Modifier.padding(16.dp))
 
