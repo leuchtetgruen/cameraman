@@ -3,7 +3,7 @@ package de.leuchtetgruen.cameraman.businessobjects
 data class ShotDescription(
     val id: Int,
     val description: String,
-    val done: Boolean,
+    var done: Boolean,
     val lat: Double,
     val lng: Double,
     val imageUrl : String?,

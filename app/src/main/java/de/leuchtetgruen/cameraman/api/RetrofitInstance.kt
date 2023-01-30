@@ -44,6 +44,7 @@ object RetrofitInstance {
         return true
      }
 
+
     suspend fun eventuallyRefreshToken(refreshToken : String) {
         if (this.token != null) {
             return

@@ -51,23 +51,27 @@ fun ShotScreen(navController: NavController,
             Spacer(modifier = Modifier.weight(1f))
 
             //TODO export color to color scheme
-            if (!viewModel.shotDescription!!.done) {
-                Button(onClick = { viewModel.markAsDone() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(116, 166, 100), contentColor = Color.White)) {
-                    Icon(painter = painterResource(id = R.drawable.check_white),
-                        contentDescription = "Check mark",
-                        modifier = Modifier.padding(end=16.dp))
-                    Text("Als erledigt markieren")
+            if (viewModel.saving) {
+                CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+            }
+            else {
+                if (!viewModel.shotDescription!!.done) {
+                    Button(onClick = { viewModel.markAsDone() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(116, 166, 100), contentColor = Color.White)) {
+                        Icon(painter = painterResource(id = R.drawable.check_white),
+                            contentDescription = "Check mark",
+                            modifier = Modifier.padding(end=16.dp))
+                        Text("Als erledigt markieren")
+                    }
+                }
+                else{
+                    Button(onClick = { viewModel.markAsToDo() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(244, 21, 73), contentColor = Color.White)) {
+                        Icon(painter = painterResource(id = R.drawable.cancel_white),
+                            contentDescription = "Check mark",
+                            modifier = Modifier.padding(end=16.dp))
+                        Text("Auf nicht erledigt setzen")
+                    }
                 }
             }
-            else{
-                Button(onClick = { viewModel.markAsToDo() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(244, 21, 73), contentColor = Color.White)) {
-                    Icon(painter = painterResource(id = R.drawable.cancel_white),
-                        contentDescription = "Check mark",
-                        modifier = Modifier.padding(end=16.dp))
-                    Text("Auf nicht erledigt setzen")
-                }
-            }
-
         }
         
 
