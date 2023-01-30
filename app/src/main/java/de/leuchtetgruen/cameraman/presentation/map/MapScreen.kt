@@ -1,20 +1,23 @@
 package de.leuchtetgruen.cameraman.presentation.map
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.accompanist.permissions.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import de.leuchtetgruen.cameraman.R
+import de.leuchtetgruen.cameraman.ui.theme.FontFamilyHeadline
 import kotlinx.coroutines.launch
 
 /*
@@ -23,10 +26,11 @@ https://www.youtube.com/watch?v=0rc75uR0CNs
 
 
 @Composable
-fun MapScreen(
+fun MapContent(
     navController: NavController,
     viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
 ) {
+
     val coroutineScope = rememberCoroutineScope()
     viewModel.load()
 
@@ -54,7 +58,7 @@ fun MapScreen(
             mutableStateOf(MapUiSettings(zoomControlsEnabled = false, myLocationButtonEnabled = true))
         }
         val properties by remember {
-            mutableStateOf(MapProperties(isMyLocationEnabled = false))
+            mutableStateOf(MapProperties(isMyLocationEnabled = true))
         }
 
 
@@ -74,6 +78,8 @@ fun MapScreen(
             cameraPositionState.position = CameraPosition.fromLatLngZoom(viewModel.centeredLatLng.value, 12.0f)
 
 
+
+
             viewModel.shotDescriptions.forEach {
                 val shotDescription = it
                 Marker(
@@ -86,6 +92,53 @@ fun MapScreen(
                         }
                     },
                 )
+            }
+        }
+
+
+    }
+}
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun MapScreen(navController: NavController) {
+
+
+    // Camera permission state
+    val fineLocationpermissionState = rememberPermissionState(
+        android.Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+
+    if (fineLocationpermissionState.status.isGranted) {
+        MapContent(navController = navController)
+    } else {
+        Column(modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(painter = painterResource(id = R.drawable.pen_48_red),
+                contentDescription = "Camera reel",
+                modifier = Modifier
+                    .width(48.dp)
+                    .height(48.dp) )
+
+            Text("Cousteau",
+                fontSize = 48.sp,
+                modifier = Modifier.padding(16.dp),
+                fontFamily = FontFamilyHeadline
+            )
+
+            val textToShow = if (fineLocationpermissionState.status.shouldShowRationale) {
+                // If the user has denied the permission but the rationale can be shown,
+                // then gently explain why the app requires this permission
+                "Um dir Aufnahmen in deiner Nähe anzuzeigen, muss die App auf deinen Standort zugreifen"
+            } else {
+                // If it's the first time the user lands on this feature, or the user
+                // doesn't want to be asked again for this permission, explain that the
+                // permission is required
+                "Um die App zu nutzen, musst du die Berechtigung für den Standortzugriff geben "
+            }
+            Text(textToShow, Modifier.fillMaxWidth().padding(16.dp), textAlign = TextAlign.Center)
+            Button(onClick = { fineLocationpermissionState.launchPermissionRequest() }) {
+                Text("Berechtigungsdialog anzeigen")
             }
         }
     }

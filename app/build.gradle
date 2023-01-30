@@ -81,4 +81,7 @@ dependencies {
 
     //Landscapist for image loading
     implementation "com.github.skydoves:landscapist-glide:2.1.2"
+
+    //Accompanist for permission  requests
+    implementation "com.google.accompanist:accompanist-permissions:0.25.1"
 }
