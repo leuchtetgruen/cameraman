@@ -17,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "de.leuchtetgruen.cameraman.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -95,7 +95,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$dagger_version"
     kapt "com.google.dagger:hilt-android-compiler:$dagger_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_version"
-    //implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$dagger_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$dagger_version"
+
     kapt "androidx.hilt:hilt-compiler:$hilt_version"
 
 
