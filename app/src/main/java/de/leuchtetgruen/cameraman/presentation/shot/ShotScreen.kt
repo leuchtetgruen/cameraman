@@ -12,13 +12,14 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import de.leuchtetgruen.cameraman.R
 
 @Composable
 fun ShotScreen(navController: NavController,
                id: String,
-               viewModel: ShotViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+               viewModel: ShotViewModel = hiltViewModel()) {
 
     viewModel.navController = navController
     viewModel.loadShot(id.toInt())

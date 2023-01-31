@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.*
 import com.google.android.gms.maps.model.CameraPosition
@@ -29,7 +30,7 @@ https://www.youtube.com/watch?v=0rc75uR0CNs
 @Composable
 fun MapContent(
     navController: NavController,
-    viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    viewModel: MapsViewModel = hiltViewModel(),
 ) {
 
     val coroutineScope = rememberCoroutineScope()

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.mutableStateOf
+import dagger.hilt.android.AndroidEntryPoint
 import de.leuchtetgruen.cameraman.api.RetrofitInstance
 import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
 import de.leuchtetgruen.cameraman.navigation.Navigation
@@ -14,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

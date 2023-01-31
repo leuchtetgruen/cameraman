@@ -1,12 +1,7 @@
 package de.leuchtetgruen.cameraman
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-
-class CameraManApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-
-
-    }
-}
+@HiltAndroidApp
+class CameraManApplication : Application()

@@ -6,14 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import dagger.hilt.android.lifecycle.HiltViewModel
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
-import de.leuchtetgruen.cameraman.di.BasicDI
+import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ShotViewModel : ViewModel() {
+@HiltViewModel
+class ShotViewModel @Inject constructor(val shotDescriptionRepository: ShotDescriptionRepository) : ViewModel() {
 
-    // TODO later change to actual DI
-    val shotDescriptionRepository = BasicDI.shotDescriptionRepository
+
 
 
     var navController : NavController? = null

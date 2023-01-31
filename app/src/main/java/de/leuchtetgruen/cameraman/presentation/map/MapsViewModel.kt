@@ -7,17 +7,19 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import dagger.hilt.android.lifecycle.HiltViewModel
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
-import de.leuchtetgruen.cameraman.di.BasicDI
 import de.leuchtetgruen.cameraman.navigation.Screen
+import de.leuchtetgruen.cameraman.presentation.use_cases.GetShotDescriptions
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MapsViewModel : ViewModel() {
+@HiltViewModel
+class MapsViewModel @Inject constructor(val getShotDescriptions: GetShotDescriptions): ViewModel() {
 
-    //TODO later change to actual DI
-    val getShotDescriptions = BasicDI.getShotDescriptions
+
 
     var showDoneItems = mutableStateOf(false)
     var navController : NavController? = null
