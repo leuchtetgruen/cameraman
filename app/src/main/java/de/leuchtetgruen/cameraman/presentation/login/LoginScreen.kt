@@ -8,7 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,9 +54,9 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
         TextField(
             value = viewModel.username,
             onValueChange = { viewModel.username = it },
-            label = { Text("Username") },
-            placeholder = { Text("Username")},
-            modifier = Modifier.padding(16.dp)
+            label = { Text(stringResource(R.string.username)) },
+            placeholder = { Text(stringResource(R.string.username))},
+            modifier = Modifier.padding(16.dp).testTag("username"),
         )
 
         TextField(
@@ -62,7 +64,7 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
             onValueChange = { viewModel.password = it },
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp).testTag("password")
         )
 
         if (viewModel.hasError && !viewModel.loading) {
@@ -71,15 +73,18 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
 
         Row(Modifier.fillMaxWidth().padding(16.dp)) {
             if (viewModel.loading) {
-                CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                CircularProgressIndicator(modifier = Modifier.padding(16.dp).testTag("loading_indicator"))
+            }
+            else {
+                Button(
+                    onClick = { doLogin() },
+                    modifier = Modifier.padding(16.dp).fillMaxWidth().testTag("login_button"),
+                ) {
+                    Text("Login")
+                }
             }
 
-            Button(
-                onClick = { doLogin() },
-                modifier = Modifier.padding(16.dp).fillMaxWidth(),
-            ) {
-                Text("Login")
-            }
+
         }
 
     }
