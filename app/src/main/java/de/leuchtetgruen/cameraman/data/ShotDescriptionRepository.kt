@@ -4,7 +4,8 @@ import de.leuchtetgruen.cameraman.api.RetrofitInstance
 import de.leuchtetgruen.cameraman.api.network_model.ShotDoneStateObjectDto
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
 
-object ShotDescriptionRepository {
+
+class ShotDescriptionRepository  {
     private var shotDescriptions : List<ShotDescription> = listOf()
     suspend fun loadShotDescriptions() : List<ShotDescription> {
         val apiResponse = RetrofitInstance.api.shotDescriptions()

@@ -7,24 +7,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
-import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.di.BasicDI
 import kotlinx.coroutines.launch
 
 class ShotViewModel : ViewModel() {
+
+    // TODO later change to actual DI
+    val shotDescriptionRepository = BasicDI.shotDescriptionRepository
+
 
     var navController : NavController? = null
     var shotDescription by mutableStateOf<ShotDescription?>(null)
     var saving by mutableStateOf(false)
 
     fun loadShot(id : Int) {
-        val test = ShotDescriptionRepository.getShotWithId(id)
+        val test = shotDescriptionRepository.getShotWithId(id)
         shotDescription = test
     }
 
     fun markAsDone() {
         viewModelScope.launch {
             saving = true
-            ShotDescriptionRepository.changeDoneState(shotDescription!!, true)
+            shotDescriptionRepository.changeDoneState(shotDescription!!, true)
             saving = false
             navController?.popBackStack()
         }
@@ -33,7 +37,7 @@ class ShotViewModel : ViewModel() {
     fun markAsToDo() {
         viewModelScope.launch {
             saving = true
-            ShotDescriptionRepository.changeDoneState(shotDescription!!, false)
+            shotDescriptionRepository.changeDoneState(shotDescription!!, false)
             saving = false
             navController?.popBackStack()
         }

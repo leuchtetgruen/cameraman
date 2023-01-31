@@ -8,13 +8,17 @@ import androidx.navigation.NavController
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
-import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.di.BasicDI
 import de.leuchtetgruen.cameraman.navigation.Screen
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class MapsViewModel : ViewModel() {
+
+    //TODO later change to actual DI
+    val getShotDescriptions = BasicDI.getShotDescriptions
+
     var showDoneItems = mutableStateOf(false)
     var navController : NavController? = null
     var shotDescriptions = mutableStateListOf<ShotDescription>()
@@ -26,9 +30,7 @@ class MapsViewModel : ViewModel() {
     fun load() {
         viewModelScope.launch {
             shotDescriptions.clear()
-            val shotDescriptionsApi = ShotDescriptionRepository.loadShotDescriptions().filter {
-                it.hasLocation() && (showDoneItems.value || !it.done)
-            }
+            val shotDescriptionsApi = getShotDescriptions(showDoneItems.value)
             shotDescriptions.addAll(shotDescriptionsApi)
 
             centeredLatLng.value =  boundsForShotDescriptions().center
