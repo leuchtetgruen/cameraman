@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import dagger.hilt.android.lifecycle.HiltViewModel
-import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
+import de.leuchtetgruen.cameraman.domain.model.ShotDescription
 import de.leuchtetgruen.cameraman.navigation.Screen
 import de.leuchtetgruen.cameraman.presentation.use_cases.GetShotDescriptions
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,8 +18,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapsViewModel @Inject constructor(val getShotDescriptions: GetShotDescriptions): ViewModel() {
-
-
 
     var showDoneItems = mutableStateOf(false)
     var navController : NavController? = null

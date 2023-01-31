@@ -1,6 +1,6 @@
 package de.leuchtetgruen.cameraman
 
-import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
+import de.leuchtetgruen.cameraman.domain.model.ShotDescription
 import org.junit.Assert
 import org.junit.Test
 

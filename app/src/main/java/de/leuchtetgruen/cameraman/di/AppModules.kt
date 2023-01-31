@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import de.leuchtetgruen.cameraman.data.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.data.ShotDescriptionRepositoryImpl
+import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.presentation.use_cases.GetShotDescriptions
 import javax.inject.Singleton
 
@@ -14,7 +15,7 @@ class AppModules {
 
     @Provides
     @Singleton
-    fun provideShotDescriptionRepository() : ShotDescriptionRepository = ShotDescriptionRepository()
+    fun provideShotDescriptionRepository() : ShotDescriptionRepository = ShotDescriptionRepositoryImpl()
 
     @Provides
     @Singleton

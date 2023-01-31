@@ -1,4 +1,4 @@
-package de.leuchtetgruen.cameraman.businessobjects
+package de.leuchtetgruen.cameraman.domain.model
 
 import android.content.Context
 import de.leuchtetgruen.cameraman.R

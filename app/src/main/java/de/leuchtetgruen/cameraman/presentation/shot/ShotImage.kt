@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import de.leuchtetgruen.cameraman.R
-import de.leuchtetgruen.cameraman.businessobjects.ShotDescription
+import de.leuchtetgruen.cameraman.domain.model.ShotDescription
 
 fun imageUrlFromShotDescription(shotDescription: ShotDescription?) : String? {
     if (shotDescription == null) return null
