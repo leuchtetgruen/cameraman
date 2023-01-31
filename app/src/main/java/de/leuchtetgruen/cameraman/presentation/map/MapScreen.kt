@@ -100,7 +100,7 @@ fun MapContent(
                 val shotDescription = it
                 Marker(
                     state = MarkerState(position = LatLng(it.lat, it.lng)),
-                    title = "Shot",
+                    title = it.title(LocalContext.current),
                     snippet = it.description,
                     onInfoWindowClick = {
                         coroutineScope.launch {

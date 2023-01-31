@@ -1,5 +1,8 @@
 package de.leuchtetgruen.cameraman.businessobjects
 
+import android.content.Context
+import de.leuchtetgruen.cameraman.R
+
 data class ShotDescription(
     val id: Int,
     val description: String,
@@ -18,15 +21,15 @@ data class ShotDescription(
         return linkedMediaUrl != null
     }
 
-    fun title() : String {
+    fun title(ctx : Context) : String {
         if (hasLocation()) {
-            return "Vor-Ort-Aufnahme"
+            return ctx.getString(R.string.on_spot_shot)
         }
 
         if (hasLinkedMedia()) {
-            return "Verlinktes Medium"
+            return ctx.getString(R.string.linked_medium)
         }
 
-        return "Aufnahme"
+        return ctx.getString(R.string.shot)
     }
 }

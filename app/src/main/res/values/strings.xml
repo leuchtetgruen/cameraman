@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Cousteau</string>
+    <string name="on_spot_shot">Vor-Ort-Aufnahme</string>
+    <string name="linked_medium">Verlinkte Aufnahme</string>
+    <string name="shot">Aufnahme</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -40,7 +41,8 @@ fun ShotScreen(navController: NavController,
 
             val style = MaterialTheme.typography.h5.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
 
-            val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title() else "Shot Description"
+            val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title(
+                LocalContext.current) else "Shot Description"
             Text(text = title!!, style = style, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
 
             Spacer(modifier = Modifier.height(30.dp))
