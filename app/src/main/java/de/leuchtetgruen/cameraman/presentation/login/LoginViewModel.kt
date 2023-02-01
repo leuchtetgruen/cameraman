@@ -6,11 +6,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import de.leuchtetgruen.cameraman.api.RetrofitInstance
-import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
+import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
 import de.leuchtetgruen.cameraman.navigation.Screen
+import de.leuchtetgruen.cameraman.presentation.use_cases.Login
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(val loginUseCase: Login, val runtimeTokenStore: RuntimeTokenStore) : ViewModel() {
     var navController : NavController? = null
     var username by mutableStateOf("")
     var password by mutableStateOf("")
@@ -19,10 +22,9 @@ class LoginViewModel : ViewModel() {
 
     suspend fun login(context : Context) {
         loading = true
-        val success = RetrofitInstance.login(username, password)
+        val success = loginUseCase(username, password, context)
         hasError = !success
         if (success) {
-            RetrofitInstance.refreshToken?.let { TokenProvider.setRefreshToken(context, it) }
             navController?.navigate(Screen.MapScreen.route)
         }
         loading = false

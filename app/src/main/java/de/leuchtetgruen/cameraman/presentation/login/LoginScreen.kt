@@ -14,15 +14,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import de.leuchtetgruen.cameraman.R
 import de.leuchtetgruen.cameraman.ui.theme.FontFamilyHeadline
+import de.leuchtetgruen.cameraman.util.TestTags
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun LoginScreen(navController: NavController,
-viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+viewModel: LoginViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -56,29 +58,41 @@ viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
             onValueChange = { viewModel.username = it },
             label = { Text(stringResource(R.string.username)) },
             placeholder = { Text(stringResource(R.string.username))},
-            modifier = Modifier.padding(16.dp).testTag("username"),
+            modifier = Modifier
+                .padding(16.dp)
+                .testTag(TestTags.TAG_USERNAME),
         )
 
         TextField(
             value = viewModel.password,
             onValueChange = { viewModel.password = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.padding(16.dp).testTag("password")
+            modifier = Modifier
+                .padding(16.dp)
+                .testTag(TestTags.TAG_PASSWORD)
         )
 
         if (viewModel.hasError && !viewModel.loading) {
             Text("Could not login successfully", modifier = Modifier.padding(16.dp), color = Color.Red)
         }
 
-        Row(Modifier.fillMaxWidth().padding(16.dp)) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp)) {
             if (viewModel.loading) {
-                CircularProgressIndicator(modifier = Modifier.padding(16.dp).testTag("loading_indicator"))
+                CircularProgressIndicator(modifier = Modifier
+                    .padding(16.dp)
+                    .testTag(TestTags.TAG_LOADING_INDICATOR))
             }
             else {
                 Button(
                     onClick = { doLogin() },
-                    modifier = Modifier.padding(16.dp).fillMaxWidth().testTag("login_button"),
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                        .testTag(TestTags.TAG_LOGIN_BUTTOM),
                 ) {
                     Text("Login")
                 }

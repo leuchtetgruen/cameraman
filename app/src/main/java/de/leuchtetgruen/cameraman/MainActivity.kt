@@ -5,20 +5,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.mutableStateOf
 import dagger.hilt.android.AndroidEntryPoint
-import de.leuchtetgruen.cameraman.api.RetrofitInstance
 import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
 import de.leuchtetgruen.cameraman.navigation.Navigation
 import de.leuchtetgruen.cameraman.presentation.loading.LoadingScreenViewModel
+import de.leuchtetgruen.cameraman.presentation.use_cases.EventuallyRefreshApiToken
 import de.leuchtetgruen.cameraman.ui.theme.CameraManTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var eventuallyRefreshApiToken : EventuallyRefreshApiToken
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         var loading = mutableStateOf(true)
         val error = mutableStateOf("")
@@ -28,7 +33,7 @@ class MainActivity : ComponentActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 withContext(Dispatchers.IO) {
                     try {
-                        RetrofitInstance.eventuallyRefreshToken(refreshToken)
+                        eventuallyRefreshApiToken(refreshToken)
                     } catch (e : Exception) {
                         error.value = e.message!!
                     }
@@ -41,7 +46,7 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             CameraManTheme {
-                if (loading.value || !error.value.isNullOrBlank()) {
+                if (loading.value || !error.value.isBlank()) {
                     LoadingScreenViewModel(loading = loading, error=error)
                 }
                 else {

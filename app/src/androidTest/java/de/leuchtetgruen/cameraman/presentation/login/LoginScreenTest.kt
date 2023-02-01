@@ -1,10 +1,8 @@
 package de.leuchtetgruen.cameraman.presentation.login
 
 import androidx.activity.compose.setContent
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,9 +10,11 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import de.leuchtetgruen.cameraman.MainActivity
+import de.leuchtetgruen.cameraman.R
 import de.leuchtetgruen.cameraman.di.AppModules
 import de.leuchtetgruen.cameraman.navigation.Screen
 import de.leuchtetgruen.cameraman.ui.theme.CameraManTheme
+import de.leuchtetgruen.cameraman.util.TestTags
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -50,30 +50,42 @@ class LoginScreenTest {
 
     @Test
     fun has_username_field() {
-        composeRule.onNodeWithTag("username").assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.TAG_USERNAME).assertIsDisplayed()
+    }
+
+    @Test
+    fun username_has_right_label() {
+        val labelText = composeRule.activity.getString(R.string.username)
+        composeRule.onNodeWithTag(TestTags.TAG_USERNAME).assertTextContains(labelText)
     }
 
     @Test
     fun has_password_field() {
-        composeRule.onNodeWithTag("password").assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.TAG_PASSWORD).assertIsDisplayed()
+    }
+
+    @Test
+    fun password_has_right_label() {
+        val labelText = composeRule.activity.getString(R.string.password)
+        composeRule.onNodeWithTag(TestTags.TAG_PASSWORD).assertTextContains(labelText)
     }
 
     @Test
     fun has_login_button() {
-        composeRule.onNodeWithTag("login_button").assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.TAG_LOGIN_BUTTOM).assertIsDisplayed()
     }
 
     @Test
     fun clicking_login_shows_loading_spinner() {
-        composeRule.onNodeWithTag("login_button").performClick()
+        composeRule.onNodeWithTag(TestTags.TAG_LOGIN_BUTTOM).performClick()
 
-        composeRule.onNodeWithTag("loading_indicator").assertIsDisplayed()
+        composeRule.onNodeWithTag(TestTags.TAG_LOADING_INDICATOR).assertIsDisplayed()
     }
 
     @Test
     fun clicking_login_shows_hides_button() {
-        composeRule.onNodeWithTag("login_button").performClick()
+        composeRule.onNodeWithTag(TestTags.TAG_LOGIN_BUTTOM).performClick()
 
-        composeRule.onNodeWithTag("login_button").assertDoesNotExist()
+        composeRule.onNodeWithTag(TestTags.TAG_LOGIN_BUTTOM).assertDoesNotExist()
     }
 }

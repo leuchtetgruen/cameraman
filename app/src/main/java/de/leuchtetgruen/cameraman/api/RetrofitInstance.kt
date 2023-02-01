@@ -1,65 +1,29 @@
-package de.leuchtetgruen.cameraman.api
+package de.leuchtetgruen.cameraman
 
-import de.leuchtetgruen.cameraman.api.network_model.LoginObjectDto
+import de.leuchtetgruen.cameraman.api.CousteauApi
+import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+fun buildCousteauApi(runtimeTokenStore: RuntimeTokenStore, baseUrl : String) : CousteauApi {
+    val client = OkHttpClient.Builder().addInterceptor { chain ->
+        val builder = chain.request().newBuilder()
 
-object RetrofitInstance {
-    var token : String? = null
-    var refreshToken : String? = null
-
-    val api by lazy {
-        val client = OkHttpClient.Builder().addInterceptor { chain ->
-            val builder = chain.request().newBuilder()
-
-            if (!chain.request().url().url().path.contains("/api/token/refresh", true)) {
-                builder.addHeader("Authorization", "Bearer $token")
-            }
-
-            val newRequest: Request = builder.build()
-            chain.proceed(newRequest)
-        }.build()
-
-        Retrofit.Builder()
-            .client(client)
-            .baseUrl("https://api.cousteau.app/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(CousteauApi::class.java)
-    }
-
-     suspend fun login(username : String, password : String) : Boolean {
-        val apiTokenResponse =  api.login(LoginObjectDto(username, password))
-        //TODO errorhandling
-        if (apiTokenResponse.errorBody() != null) {
-            return false
+        if ((!chain.request().url().url().path.contains("/api/token/refresh", true)) &&
+            (runtimeTokenStore.hasToken())) {
+            builder.addHeader("Authorization", "Bearer ${runtimeTokenStore.token}")
         }
 
-        this.token = apiTokenResponse.body()?.token
-        this.refreshToken = apiTokenResponse.body()?.refresh_token
+        val newRequest: Request = builder.build()
+        chain.proceed(newRequest)
+    }.build()
 
-        return true
-     }
-
-
-    suspend fun eventuallyRefreshToken(refreshToken : String) {
-        if (this.token != null) {
-            return
-        }
-
-        val apiTokenResponse =  api.refreshToken(refreshToken)
-
-        val errorBody = apiTokenResponse.errorBody()
-        if (errorBody != null) {
-            throw  Exception("Error while refreshing token")
-        }
-
-
-        this.token = apiTokenResponse.body()?.token
-        this.refreshToken = apiTokenResponse.body()?.refresh_token
-    }
-
+    return Retrofit.Builder()
+        .client(client)
+        .baseUrl(baseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(CousteauApi::class.java)
 }
