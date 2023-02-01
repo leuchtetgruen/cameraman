@@ -7,6 +7,8 @@ import dagger.hilt.components.SingletonComponent
 import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.FakeCousteauApi
 import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
+import de.leuchtetgruen.cameraman.businessobjects.FakeTokenProvider
+import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
 import de.leuchtetgruen.cameraman.data.repository.FakeShotDescriptionRepository
 import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.presentation.use_cases.EventuallyRefreshApiToken
@@ -36,9 +38,13 @@ class TestAppModules {
 
     @Provides
     @Singleton
-    fun provideLoginUseCase(api: CousteauApi, runtimeTokenStore: RuntimeTokenStore) : Login = Login(api, runtimeTokenStore)
+    fun provideLoginUseCase(api: CousteauApi, runtimeTokenStore: RuntimeTokenStore, tokenProvider: TokenProvider) : Login = Login(api, runtimeTokenStore, tokenProvider)
 
     @Provides
     @Singleton
     fun provideRefreshTokenUseCase(api: CousteauApi, runtimeTokenStore: RuntimeTokenStore) : EventuallyRefreshApiToken = EventuallyRefreshApiToken(api, runtimeTokenStore)
+
+    @Provides
+    @Singleton
+    fun provideTokenProvider() : TokenProvider = FakeTokenProvider
 }
