@@ -21,6 +21,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var eventuallyRefreshApiToken : EventuallyRefreshApiToken
 
+    @Inject
+    lateinit var tokenProvider : TokenProvider
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,8 +31,8 @@ class MainActivity : ComponentActivity() {
         var loading = mutableStateOf(true)
         val error = mutableStateOf("")
 
-        if (TokenProvider.hasRefreshToken(this)) {
-            val refreshToken = TokenProvider.getRefreshToken(this)
+        if (tokenProvider.hasRefreshToken()) {
+            val refreshToken = tokenProvider.getRefreshToken()
             CoroutineScope(Dispatchers.Main).launch {
                 withContext(Dispatchers.IO) {
                     try {
@@ -50,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     LoadingScreenViewModel(loading = loading, error=error)
                 }
                 else {
-                    Navigation()
+                    Navigation(tokenProvider)
                 }
             }
         }

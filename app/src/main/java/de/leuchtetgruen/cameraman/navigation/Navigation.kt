@@ -1,7 +1,6 @@
 package de.leuchtetgruen.cameraman.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,10 +12,10 @@ import de.leuchtetgruen.cameraman.presentation.map.MapScreen
 import de.leuchtetgruen.cameraman.presentation.shot.ShotScreen
 
 @Composable
-fun Navigation() {
+fun Navigation(tokenProvider: TokenProvider) {
     val navController = rememberNavController()
 
-    val startScreen = if (TokenProvider.needsLogin(LocalContext.current)) {
+    val startScreen = if (tokenProvider.needsLogin()) {
         Screen.LoginScreen.route
     } else {
         Screen.MapScreen.route

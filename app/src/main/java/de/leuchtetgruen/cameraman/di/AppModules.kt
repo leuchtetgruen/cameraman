@@ -1,13 +1,17 @@
 package de.leuchtetgruen.cameraman.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.leuchtetgruen.cameraman.Config
 import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
 import de.leuchtetgruen.cameraman.buildCousteauApi
+import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
+import de.leuchtetgruen.cameraman.businessobjects.TokenProviderImpl
 import de.leuchtetgruen.cameraman.data.ShotDescriptionRepositoryImpl
 import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.presentation.use_cases.GetShotDescriptions
@@ -36,5 +40,9 @@ class AppModules {
 
     @Provides
     @Singleton
-    fun provideLoginUseCase(api: CousteauApi, runtimeTokenStore: RuntimeTokenStore) : Login = Login(api, runtimeTokenStore)
+    fun provideLoginUseCase(api: CousteauApi, runtimeTokenStore: RuntimeTokenStore, tokenProvider: TokenProvider) : Login = Login(api, runtimeTokenStore, tokenProvider)
+
+    @Provides
+    @Singleton
+    fun provideTokenProvider(@ApplicationContext appContext: Context) : TokenProvider = TokenProviderImpl(appContext)
 }

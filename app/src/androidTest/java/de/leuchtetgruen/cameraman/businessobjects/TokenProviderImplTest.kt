@@ -13,7 +13,7 @@ import org.junit.Test
 
 @HiltAndroidTest
 @UninstallModules(AppModules::class)
-class TokenProviderTest {
+class TokenProviderImplTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
@@ -24,26 +24,26 @@ class TokenProviderTest {
     @Before
     fun setUp() {
         val ctx = composeRule.activity.applicationContext
-        ctx.getSharedPreferences(TokenProvider.SHARED_PREFS_KEY, 0).edit().clear().apply()
+        ctx.getSharedPreferences(TokenProviderImpl.SHARED_PREFS_KEY, 0).edit().clear().apply()
     }
 
     @Test
     fun can_read_written_refresh_token() {
         val token = "foobar"
-        TokenProvider.setRefreshToken(composeRule.activity.applicationContext, token)
-        val readToken = TokenProvider.getRefreshToken(composeRule.activity.applicationContext)
+        TokenProviderImpl.setRefreshToken(composeRule.activity.applicationContext, token)
+        val readToken = TokenProviderImpl.getRefreshToken(composeRule.activity.applicationContext)
         Assert.assertEquals(readToken, token)
     }
 
     @Test
     fun checking_refresh_token_exists_works() {
-        TokenProvider.setRefreshToken(composeRule.activity.applicationContext, "anytoken")
-        Assert.assertTrue(TokenProvider.hasRefreshToken(composeRule.activity.applicationContext))
+        TokenProviderImpl.setRefreshToken(composeRule.activity.applicationContext, "anytoken")
+        Assert.assertTrue(TokenProviderImpl.hasRefreshToken(composeRule.activity.applicationContext))
     }
 
     @Test
     fun check_needs_login_at_beginning() {
-        Assert.assertTrue(TokenProvider.needsLogin(composeRule.activity.applicationContext))
+        Assert.assertTrue(TokenProviderImpl.needsLogin(composeRule.activity.applicationContext))
     }
 
 }
