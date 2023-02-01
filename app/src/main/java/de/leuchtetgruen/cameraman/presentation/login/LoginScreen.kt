@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 fun LoginScreen(navController: NavController,
 viewModel: LoginViewModel = hiltViewModel()) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().testTag(TestTags.TAG_LOGIN_SCREEN),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -74,7 +74,7 @@ viewModel: LoginViewModel = hiltViewModel()) {
         )
 
         if (viewModel.hasError && !viewModel.loading) {
-            Text("Could not login successfully", modifier = Modifier.padding(16.dp), color = Color.Red)
+            Text("Could not login successfully", modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_ERROR_MESSAGE), color = Color.Red)
         }
 
         Row(

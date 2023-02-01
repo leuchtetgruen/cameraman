@@ -10,9 +10,10 @@ import retrofit2.Response
 
 object FakeCousteauApi : CousteauApi {
     var loginShouldSucceed = true
+    var shouldDelay = true
 
     override suspend fun login(loginObject: LoginObjectDto): Response<ApiTokenDto> {
-        delay(1000)
+        if (shouldDelay) delay(1000)
         val successObject = ApiTokenDto("foobar", "foobar")
         val errorBody = "{\"code\":401,\"message\":\"Invalid credentials.\"}"
         if (loginShouldSucceed) {
@@ -31,7 +32,7 @@ object FakeCousteauApi : CousteauApi {
     }
 
     override suspend fun refreshToken(refreshToken: String): Response<ApiTokenDto> {
-        delay(1000)
+        if (shouldDelay) delay(1000)
         val successObject = ApiTokenDto("foobar", "foobar")
         return Response.success(successObject)
     }

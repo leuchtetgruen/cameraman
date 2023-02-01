@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,7 @@ import com.google.maps.android.compose.*
 import de.leuchtetgruen.cameraman.R
 import de.leuchtetgruen.cameraman.presentation.navigation.AppBottomNavigation
 import de.leuchtetgruen.cameraman.ui.theme.FontFamilyHeadline
+import de.leuchtetgruen.cameraman.util.TestTags
 import kotlinx.coroutines.launch
 
 /*
@@ -43,7 +45,7 @@ fun MapContent(
         }
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
+    Scaffold(modifier = Modifier.fillMaxSize().testTag(TestTags.TAG_MAP_SCREEN),
         floatingActionButton = {
             FloatingActionButton(onClick = { viewModel.toggleShowAllItems() }) {
                 if (viewModel.showDoneItems.value) {
