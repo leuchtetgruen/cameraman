@@ -7,10 +7,10 @@ import dagger.hilt.components.SingletonComponent
 import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.FakeCousteauApi
 import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
-import de.leuchtetgruen.cameraman.businessobjects.FakeTokenProvider
 import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
-import de.leuchtetgruen.cameraman.data.repository.FakeShotDescriptionRepository
+import de.leuchtetgruen.cameraman.mocks.repository.FakeShotDescriptionRepository
 import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.mocks.businessobjects.FakeTokenProvider
 import de.leuchtetgruen.cameraman.presentation.use_cases.EventuallyRefreshApiToken
 import de.leuchtetgruen.cameraman.presentation.use_cases.GetShotDescriptions
 import de.leuchtetgruen.cameraman.presentation.use_cases.Login
