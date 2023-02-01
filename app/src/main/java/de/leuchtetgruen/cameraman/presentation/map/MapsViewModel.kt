@@ -33,7 +33,10 @@ class MapsViewModel @Inject constructor(val getShotDescriptions: GetShotDescript
             val shotDescriptionsApi = getShotDescriptions(showDoneItems.value)
             shotDescriptions.addAll(shotDescriptionsApi)
 
-            centeredLatLng.value =  boundsForShotDescriptions().center
+            val bounds = boundsForShotDescriptions()
+            if (bounds != null) {
+                centeredLatLng.value =  bounds.center
+            }
         }
     }
 
@@ -41,7 +44,9 @@ class MapsViewModel @Inject constructor(val getShotDescriptions: GetShotDescript
         navController?.navigate(Screen.ShotScreen.routeWithId(shotDescription.id))
     }
 
-    fun boundsForShotDescriptions() : LatLngBounds {
+    fun boundsForShotDescriptions() : LatLngBounds? {
+        if (shotDescriptions.isEmpty()) return null
+
         val builder = LatLngBounds.builder()
         shotDescriptions.forEach {
             if (it.lat != 0.0) {

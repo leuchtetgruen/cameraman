@@ -4,10 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import de.leuchtetgruen.cameraman.Config
 import de.leuchtetgruen.cameraman.api.CousteauApi
+import de.leuchtetgruen.cameraman.api.FakeCousteauApi
 import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
-import de.leuchtetgruen.cameraman.buildCousteauApi
 import de.leuchtetgruen.cameraman.data.repository.FakeShotDescriptionRepository
 import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.presentation.use_cases.EventuallyRefreshApiToken
@@ -25,7 +24,7 @@ class TestAppModules {
 
     @Provides
     @Singleton
-    fun provideApi(runtimeTokenStore: RuntimeTokenStore) : CousteauApi = buildCousteauApi(runtimeTokenStore, Config.BASE_URL)
+    fun provideApi() : CousteauApi = FakeCousteauApi
 
     @Provides
     @Singleton

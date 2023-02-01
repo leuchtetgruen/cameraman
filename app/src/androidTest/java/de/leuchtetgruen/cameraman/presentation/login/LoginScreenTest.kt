@@ -13,6 +13,7 @@ import de.leuchtetgruen.cameraman.MainActivity
 import de.leuchtetgruen.cameraman.R
 import de.leuchtetgruen.cameraman.di.AppModules
 import de.leuchtetgruen.cameraman.navigation.Screen
+import de.leuchtetgruen.cameraman.presentation.map.MapScreen
 import de.leuchtetgruen.cameraman.ui.theme.CameraManTheme
 import de.leuchtetgruen.cameraman.util.TestTags
 import org.junit.Before
@@ -41,6 +42,9 @@ class LoginScreenTest {
                 ) {
                     composable(route = Screen.LoginScreen.route) {
                         LoginScreen(navController = navController)
+                    }
+                    composable(route = Screen.MapScreen.route) {
+                        MapScreen(navController)
                     }
 
                 }
