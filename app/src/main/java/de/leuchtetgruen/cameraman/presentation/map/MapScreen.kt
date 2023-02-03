@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,12 +52,12 @@ fun MapContent(
                 if (viewModel.showDoneItems.value) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_filter_alt_off_24),
-                        contentDescription = "Should not show all items"
+                        contentDescription = stringResource(R.string.filter_show_only_todo_shots)
                     )
                 } else {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_filter_alt_24),
-                        contentDescription = "Should show all items"
+                        contentDescription = stringResource(R.string.filter_show_all_shots)
                     )
                 }
 
@@ -154,19 +155,19 @@ fun MapScreen(navController: NavController) {
             val textToShow = if (fineLocationpermissionState.status.shouldShowRationale) {
                 // If the user has denied the permission but the rationale can be shown,
                 // then gently explain why the app requires this permission
-                "Um dir Aufnahmen in deiner Nähe anzuzeigen, muss die App auf deinen Standort zugreifen"
+                stringResource(R.string.rationale_permission_1)
             } else {
                 // If it's the first time the user lands on this feature, or the user
                 // doesn't want to be asked again for this permission, explain that the
                 // permission is required
-                "Um die App zu nutzen, musst du die Berechtigung für den Standortzugriff geben "
+                stringResource(R.string.rationale_permission_2)
             }
             Text(textToShow,
                 Modifier
                     .fillMaxWidth()
                     .padding(16.dp), textAlign = TextAlign.Center)
             Button(onClick = { fineLocationpermissionState.launchPermissionRequest() }) {
-                Text("Berechtigungsdialog anzeigen")
+                Text(stringResource(R.string.show_permissions_dialog))
             }
         }
     }
