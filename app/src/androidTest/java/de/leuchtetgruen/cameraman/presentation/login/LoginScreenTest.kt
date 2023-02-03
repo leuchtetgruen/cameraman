@@ -12,7 +12,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import de.leuchtetgruen.cameraman.MainActivity
 import de.leuchtetgruen.cameraman.R
-import de.leuchtetgruen.cameraman.api.FakeCousteauApi
+import de.leuchtetgruen.cameraman.mocks.api.FakeCousteauApi
 import de.leuchtetgruen.cameraman.di.AppModules
 import de.leuchtetgruen.cameraman.navigation.Screen
 import de.leuchtetgruen.cameraman.presentation.map.MapScreen

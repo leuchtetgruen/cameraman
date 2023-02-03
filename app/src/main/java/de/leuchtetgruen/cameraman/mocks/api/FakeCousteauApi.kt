@@ -1,5 +1,6 @@
-package de.leuchtetgruen.cameraman.api
+package de.leuchtetgruen.cameraman.mocks.api
 
+import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.network_model.ApiTokenDto
 import de.leuchtetgruen.cameraman.api.network_model.LoginObjectDto
 import de.leuchtetgruen.cameraman.api.network_model.ShotDescriptionDto
@@ -11,6 +12,9 @@ import retrofit2.Response
 object FakeCousteauApi : CousteauApi {
     var loginShouldSucceed = true
     var shouldDelay = true
+
+    var queryingShotDescriptionsShouldSucceed = true
+    var shotDescriptionDtos = listOf<ShotDescriptionDto>()
 
     override suspend fun login(loginObject: LoginObjectDto): Response<ApiTokenDto> {
         if (shouldDelay) delay(1000)
@@ -38,6 +42,13 @@ object FakeCousteauApi : CousteauApi {
     }
 
     override suspend fun shotDescriptions(): Response<List<ShotDescriptionDto>> {
-        TODO("Not yet implemented")
+        if (shouldDelay) delay(1000)
+        val errorBody = "{\"code\":401,\"message\":\"Expired JWT token.\"}"
+        if (queryingShotDescriptionsShouldSucceed) {
+            return Response.success(shotDescriptionDtos)
+        }
+        else {
+            return Response.error(401, ResponseBody.create(null, errorBody))
+        }
     }
 }
