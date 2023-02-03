@@ -17,4 +17,9 @@ object TestTags {
 
     const val TAG_ACTUAL_IMAGE = "actual_image"
     const val TAG_PLACEHOLDER_IMAGE = "actual_image"
+
+    const val TAG_SHOT_TITLE = "shot_title"
+    const val TAG_DESCRIPTION = "shot_description"
+    const val TAG_TODO_BTN = "btn_todo"
+    const val TAG_DONE_BTN = "btn_done"
 }

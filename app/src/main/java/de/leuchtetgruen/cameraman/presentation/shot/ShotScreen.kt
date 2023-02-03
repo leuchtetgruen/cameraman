@@ -7,7 +7,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -15,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import de.leuchtetgruen.cameraman.R
+import de.leuchtetgruen.cameraman.util.TestTags
 
 @Composable
 fun ShotScreen(navController: NavController,
@@ -43,13 +46,13 @@ fun ShotScreen(navController: NavController,
             val style = MaterialTheme.typography.h5.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
 
             val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title(
-                LocalContext.current) else "Shot Description"
-            Text(text = title!!, style = style, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+                LocalContext.current) else LocalContext.current.getString(R.string.shot)
+
+            Text(text = title!!, style = style, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().testTag(TestTags.TAG_SHOT_TITLE))
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            val description = if (viewModel.shotDescription != null) viewModel.shotDescription?.description else "foo"
-            Text(text = description ?: "bar")
+            Text(text = viewModel.shotDescription!!.description, Modifier.testTag(TestTags.TAG_DESCRIPTION))
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -59,19 +62,19 @@ fun ShotScreen(navController: NavController,
             }
             else {
                 if (!viewModel.shotDescription!!.done) {
-                    Button(onClick = { viewModel.markAsDone() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(116, 166, 100), contentColor = Color.White)) {
+                    Button(onClick = { viewModel.markAsDone() }, modifier = Modifier.fillMaxWidth().testTag(TestTags.TAG_TODO_BTN), colors = ButtonDefaults.buttonColors(backgroundColor = Color(116, 166, 100), contentColor = Color.White)) {
                         Icon(painter = painterResource(id = R.drawable.check_white),
-                            contentDescription = "Check mark",
+                            contentDescription = stringResource(R.string.checkmark),
                             modifier = Modifier.padding(end=16.dp))
-                        Text("Als erledigt markieren")
+                        Text(stringResource(R.string.mark_as_done))
                     }
                 }
                 else{
-                    Button(onClick = { viewModel.markAsToDo() }, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(backgroundColor = Color(244, 21, 73), contentColor = Color.White)) {
+                    Button(onClick = { viewModel.markAsToDo() }, modifier = Modifier.fillMaxWidth().testTag(TestTags.TAG_DONE_BTN), colors = ButtonDefaults.buttonColors(backgroundColor = Color(244, 21, 73), contentColor = Color.White)) {
                         Icon(painter = painterResource(id = R.drawable.cancel_white),
-                            contentDescription = "Check mark",
+                            contentDescription = stringResource(R.string.cancel_descr),
                             modifier = Modifier.padding(end=16.dp))
-                        Text("Auf nicht erledigt setzen")
+                        Text(stringResource(R.string.mark_as_todo))
                     }
                 }
             }

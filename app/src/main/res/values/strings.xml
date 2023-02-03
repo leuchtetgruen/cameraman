@@ -12,4 +12,8 @@
     <string name="rationale_permission_1">Um dir Aufnahmen in deiner Nähe anzuzeigen, muss die App auf deinen Standort zugreifen</string>
     <string name="rationale_permission_2">\"Um die App zu nutzen, musst du die Berechtigung für den Standortzugriff geben \"</string>
     <string name="show_permissions_dialog">Berechtigungsdialog anzeigen</string>
+    <string name="mark_as_done">Als erledigt markieren</string>
+    <string name="mark_as_todo">Auf nicht erledigt setzen</string>
+    <string name="checkmark">Häkchen zur Bestätigung</string>
+    <string name="cancel_descr">Symbol zum Löschen</string>
 </resources>
