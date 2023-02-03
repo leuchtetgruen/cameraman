@@ -10,19 +10,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import de.leuchtetgruen.cameraman.R
+import de.leuchtetgruen.cameraman.util.TestTags
 
 @Composable
-fun LoadingScreenViewModel(loading : MutableState<Boolean>, error : MutableState<String> = mutableStateOf("")) {
+fun LoadingScreen(loading : MutableState<Boolean>, error : MutableState<String> = mutableStateOf("")) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        if (error.value.isNullOrBlank()) {
+        if (error.value.isBlank()) {
             Icon(painter = painterResource(id = R.drawable.camera_reels),
                 contentDescription = "Camera reel",
                 modifier = Modifier
@@ -37,14 +40,14 @@ fun LoadingScreenViewModel(loading : MutableState<Boolean>, error : MutableState
         }
 
         if (loading.value) {
-            Text("Loading...", modifier = Modifier.padding(16.dp))
-            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+            Text(stringResource(R.string.loading), modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_LOADING))
+            CircularProgressIndicator(modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_LOADING_INDICATOR))
         }
 
-        if (!error.value.isNullOrBlank()) {
-            Text(error.value, color = Color.Red, modifier = Modifier.padding(16.dp))
+        if (!error.value.isBlank()) {
+            Text(error.value, color = Color.Red, modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_ERROR_MESSAGE))
 
-            Text("Try again later", color = Color.Gray, modifier = Modifier.padding(16.dp))
+            Text(stringResource(R.string.try_again_later), color = Color.Gray, modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_ERROR_MESSAGE_2))
         }
 
     }

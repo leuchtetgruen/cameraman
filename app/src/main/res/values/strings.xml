@@ -5,4 +5,6 @@
     <string name="shot">Aufnahme</string>
     <string name="username">Benutzername</string>
     <string name="password">Passwort</string>
+    <string name="loading">Lade…</string>
+    <string name="try_again_later">Versuch\' es später noch mal</string>
 </resources>

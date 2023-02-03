@@ -1,4 +1,4 @@
-package de.leuchtetgruen.cameraman.data
+package de.leuchtetgruen.cameraman.domain.repository
 
 import de.leuchtetgruen.cameraman.api.network_model.ShotDescriptionDto
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
@@ -53,7 +53,7 @@ class ShotDescriptionRepositoryImplTest {
         FakeCousteauApi.queryingShotDescriptionsShouldSucceed = true
         FakeCousteauApi.shotDescriptionDtos = listOf()
 
-        var received: List<ShotDescription>? = null
+        var received: List<ShotDescription>?
         runBlocking {
             received = shotDescriptionRepositoryImpl.loadShotDescriptions()
         }
@@ -81,7 +81,7 @@ class ShotDescriptionRepositoryImplTest {
         FakeCousteauApi.queryingShotDescriptionsShouldSucceed = true
         FakeCousteauApi.shotDescriptionDtos = dtoList
 
-        var received: List<ShotDescription>? = null
+        var received: List<ShotDescription>?
         runBlocking {
             received = shotDescriptionRepositoryImpl.loadShotDescriptions()
         }

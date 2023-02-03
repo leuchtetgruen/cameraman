@@ -20,12 +20,12 @@
 
         android:usesCleartextTraffic="true"
         >
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCqBffKLw6-Bx0phFZM5T62nllvAWSN-Zo"/>
+        <!-- Before running: Create resource file that contains map key and dont put it into git repo -->
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_maps_key"/>
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.CameraMan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

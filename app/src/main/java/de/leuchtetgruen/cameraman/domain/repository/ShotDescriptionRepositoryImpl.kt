@@ -1,9 +1,8 @@
-package de.leuchtetgruen.cameraman.data
+package de.leuchtetgruen.cameraman.domain.repository
 
 import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.network_model.ShotDoneStateObjectDto
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
-import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
 
 
 class ShotDescriptionRepositoryImpl(val api: CousteauApi) : ShotDescriptionRepository {
