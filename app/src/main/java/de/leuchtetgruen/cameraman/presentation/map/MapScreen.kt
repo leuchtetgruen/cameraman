@@ -36,6 +36,7 @@ fun MapContent(
     val coroutineScope = rememberCoroutineScope()
     viewModel.load()
 
+
     val ctx = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.toastMessage.collect {

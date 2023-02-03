@@ -31,7 +31,7 @@ fun ShotScreen(navController: NavController,
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        ShotImage(shotDescription = viewModel.shotDescription)
+        ShotImage(ShotImageViewModel(viewModel.shotDescription))
 
         Spacer(modifier = Modifier.height(30.dp))
 

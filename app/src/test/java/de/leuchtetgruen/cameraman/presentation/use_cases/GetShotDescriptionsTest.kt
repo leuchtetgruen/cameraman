@@ -1,7 +1,7 @@
 package de.leuchtetgruen.cameraman.presentation.use_cases
 
-import de.leuchtetgruen.cameraman.data.repository.FakeShotDescriptionRepository
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
+import de.leuchtetgruen.cameraman.mocks.repository.FakeShotDescriptionRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
@@ -14,7 +14,7 @@ class GetShotDescriptionsTest {
 
     @Before
     fun setUp() {
-        shotsRepository = FakeShotDescriptionRepository()
+        shotsRepository = FakeShotDescriptionRepository
 
         shotsRepository.shots.add(ShotDescription(1, "shot 1", false, 0.0, 0.0, null, null ))
         shotsRepository.shots.add(ShotDescription(2, "shot 2", true, 0.0, 0.0, null, null ))

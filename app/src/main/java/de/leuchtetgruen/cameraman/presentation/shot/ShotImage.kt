@@ -12,21 +12,12 @@ import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import de.leuchtetgruen.cameraman.R
-import de.leuchtetgruen.cameraman.domain.model.ShotDescription
 
-fun imageUrlFromShotDescription(shotDescription: ShotDescription?) : String? {
-    if (shotDescription == null) return null
 
-    if (shotDescription.imageUrl != null) return shotDescription.imageUrl
-
-    if ((shotDescription.linkedMediaUrl != null) && shotDescription.linkedMediaUrl.lowercase().endsWith(".jpg")) return shotDescription.linkedMediaUrl
-
-    return null
-}
 
 @Composable
-fun ShotImage(shotDescription: ShotDescription?) {
-    val imageUrl = imageUrlFromShotDescription(shotDescription)
+fun ShotImage(viewModel: ShotImageViewModel) {
+    val imageUrl = viewModel.imageUrlFromShotDescription()
     if (imageUrl != null) {
         GlideImage(
             imageModel = { imageUrl },
