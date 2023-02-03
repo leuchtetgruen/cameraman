@@ -25,9 +25,6 @@ import de.leuchtetgruen.cameraman.ui.theme.FontFamilyHeadline
 import de.leuchtetgruen.cameraman.util.TestTags
 import kotlinx.coroutines.launch
 
-/*
-https://www.youtube.com/watch?v=0rc75uR0CNs
- */
 
 
 @Composable
@@ -89,7 +86,7 @@ fun MapContent(
 
 
         GoogleMap(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().testTag(TestTags.TAG_MAP),
             properties = properties,
             uiSettings = uiSettings,
             cameraPositionState = cameraPositionState
@@ -121,6 +118,49 @@ fun MapContent(
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
+fun PermissionsScreen(fineLocationpermissionState: PermissionState) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.pen_48_red),
+            contentDescription = "Camera reel",
+            modifier = Modifier
+                .width(48.dp)
+                .height(48.dp)
+        )
+
+        Text(
+            "Cousteau",
+            fontSize = 48.sp,
+            modifier = Modifier.padding(16.dp),
+            fontFamily = FontFamilyHeadline
+        )
+
+        val textToShow = if (fineLocationpermissionState.status.shouldShowRationale) {
+            // If the user has denied the permission but the rationale can be shown,
+            // then gently explain why the app requires this permission
+            stringResource(R.string.rationale_permission_1)
+        } else {
+            // If it's the first time the user lands on this feature, or the user
+            // doesn't want to be asked again for this permission, explain that the
+            // permission is required
+            stringResource(R.string.rationale_permission_2)
+        }
+        Text(textToShow,
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp), textAlign = TextAlign.Center)
+        Button(onClick = { fineLocationpermissionState.launchPermissionRequest() }) {
+            Text(stringResource(R.string.show_permissions_dialog))
+        }
+    }
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
 fun MapScreen(navController: NavController) {
 
 
@@ -132,43 +172,6 @@ fun MapScreen(navController: NavController) {
     if (fineLocationpermissionState.status.isGranted) {
         MapContent(navController = navController)
     } else {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.pen_48_red),
-                contentDescription = "Camera reel",
-                modifier = Modifier
-                    .width(48.dp)
-                    .height(48.dp)
-            )
-
-            Text(
-                "Cousteau",
-                fontSize = 48.sp,
-                modifier = Modifier.padding(16.dp),
-                fontFamily = FontFamilyHeadline
-            )
-
-            val textToShow = if (fineLocationpermissionState.status.shouldShowRationale) {
-                // If the user has denied the permission but the rationale can be shown,
-                // then gently explain why the app requires this permission
-                stringResource(R.string.rationale_permission_1)
-            } else {
-                // If it's the first time the user lands on this feature, or the user
-                // doesn't want to be asked again for this permission, explain that the
-                // permission is required
-                stringResource(R.string.rationale_permission_2)
-            }
-            Text(textToShow,
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp), textAlign = TextAlign.Center)
-            Button(onClick = { fineLocationpermissionState.launchPermissionRequest() }) {
-                Text(stringResource(R.string.show_permissions_dialog))
-            }
-        }
+        PermissionsScreen(fineLocationpermissionState)
     }
 }

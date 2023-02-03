@@ -7,4 +7,9 @@
     <string name="password">Passwort</string>
     <string name="loading">Lade…</string>
     <string name="try_again_later">Versuch\' es später noch mal</string>
+    <string name="filter_show_only_todo_shots">Nur unerledigte Shots anzeigen</string>
+    <string name="filter_show_all_shots">Alle Shots anzeigen</string>
+    <string name="rationale_permission_1">Um dir Aufnahmen in deiner Nähe anzuzeigen, muss die App auf deinen Standort zugreifen</string>
+    <string name="rationale_permission_2">\"Um die App zu nutzen, musst du die Berechtigung für den Standortzugriff geben \"</string>
+    <string name="show_permissions_dialog">Berechtigungsdialog anzeigen</string>
 </resources>

@@ -1,6 +1,6 @@
 # Cousteau Android App
 
-A native Android app that allows to 
+A native Android app (under development) that allows to 
 
   - find shots on a map
   - mark shots as done

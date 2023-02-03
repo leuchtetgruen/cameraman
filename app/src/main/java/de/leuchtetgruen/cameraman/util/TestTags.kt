@@ -12,4 +12,6 @@ object TestTags {
     const val TAG_MAP_SCREEN = "map_screen"
 
     const val TAG_LOADING = "loading"
+
+    const val TAG_MAP = "map"
 }

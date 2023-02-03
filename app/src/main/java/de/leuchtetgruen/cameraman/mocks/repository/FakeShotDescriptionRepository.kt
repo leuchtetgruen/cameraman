@@ -3,7 +3,7 @@ package de.leuchtetgruen.cameraman.mocks.repository
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
 import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
 
-class FakeShotDescriptionRepository : ShotDescriptionRepository {
+object FakeShotDescriptionRepository : ShotDescriptionRepository {
 
     var shots : MutableList<ShotDescription> = mutableListOf()
 
