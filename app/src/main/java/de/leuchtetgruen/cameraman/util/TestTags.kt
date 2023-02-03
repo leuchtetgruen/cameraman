@@ -14,4 +14,7 @@ object TestTags {
     const val TAG_LOADING = "loading"
 
     const val TAG_MAP = "map"
+
+    const val TAG_ACTUAL_IMAGE = "actual_image"
+    const val TAG_PLACEHOLDER_IMAGE = "actual_image"
 }
