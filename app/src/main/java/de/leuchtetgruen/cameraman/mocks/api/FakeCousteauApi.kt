@@ -16,6 +16,8 @@ object FakeCousteauApi : CousteauApi {
     var queryingSourcesShouldSucceed = true
     var sourceDtos = listOf<SourceDto>()
 
+    var creatingSourceShouldSucceed = true
+
     override suspend fun login(loginObject: LoginObjectDto): Response<ApiTokenDto> {
         if (shouldDelay) delay(1000)
         val successObject = ApiTokenDto("foobar", "foobar")
@@ -57,6 +59,17 @@ object FakeCousteauApi : CousteauApi {
         val errorBody = "{\"code\":401,\"message\":\"Expired JWT token.\"}"
         if (queryingSourcesShouldSucceed) {
             return Response.success(sourceDtos)
+        }
+        else {
+            return Response.error(401, ResponseBody.create(null, errorBody))
+        }
+    }
+
+    override suspend fun createSource(sourceDto: SourceDto) : Response<SourceDto> {
+        if (shouldDelay) delay(1000)
+        val errorBody = "{\"code\":401,\"message\":\"Expired JWT token.\"}"
+        if (creatingSourceShouldSucceed) {
+            return Response.success(sourceDto)
         }
         else {
             return Response.error(401, ResponseBody.create(null, errorBody))

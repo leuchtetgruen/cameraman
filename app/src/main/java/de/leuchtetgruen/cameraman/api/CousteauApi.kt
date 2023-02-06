@@ -20,4 +20,7 @@ interface CousteauApi {
 
     @GET("/api/sources.json")
     suspend fun sources(): Response<List<SourceDto>>
+
+    @POST("/api/sources")
+    suspend fun createSource(@Body sourceDto: SourceDto) : Response<SourceDto>
 }

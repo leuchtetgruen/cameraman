@@ -4,4 +4,6 @@ import de.leuchtetgruen.cameraman.domain.model.Source
 
 interface SourcesRepository {
     suspend fun loadSources() : List<Source>
+
+    suspend fun createSource(source: Source) : Boolean
 }

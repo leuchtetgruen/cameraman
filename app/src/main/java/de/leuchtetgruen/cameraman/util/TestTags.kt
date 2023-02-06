@@ -26,4 +26,7 @@ object TestTags {
     const val TAG_ADD_SOURCE_TITLE = "add_source_title"
     const val TAG_SOURCE_TITLE = "source_title_textfield"
     const val TAG_SOURCE_URL = "source_url"
+
+    const val TAG_ERROR_MESSAGE_TITLE = "error_title"
+    const val TAG_ERROR_MESSAGE_URL = "error_url"
 }

@@ -20,4 +20,8 @@
     <string name="title">Titel</string>
     <string name="url">Web-Adresse</string>
     <string name="create_source">Quelle erstellen</string>
+    <string name="error_create_source_serverside">Konnte Quelle auf dem Server nicht erstellen</string>
+    <string name="error_title_invalid">Titel ungültig</string>
+    <string name="error_url_invalid">URL ungültig</string>
+    <string name="create_source_success">Quelle erstellt</string>
 </resources>
