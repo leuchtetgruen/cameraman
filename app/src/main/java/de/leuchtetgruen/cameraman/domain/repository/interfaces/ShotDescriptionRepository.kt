@@ -1,4 +1,4 @@
-package de.leuchtetgruen.cameraman.domain.repository
+package de.leuchtetgruen.cameraman.domain.repository.interfaces
 
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
 

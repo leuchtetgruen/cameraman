@@ -1,7 +1,7 @@
 package de.leuchtetgruen.cameraman.presentation.use_cases
 
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
-import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.ShotDescriptionRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 

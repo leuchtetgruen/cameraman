@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
-import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.ShotDescriptionRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

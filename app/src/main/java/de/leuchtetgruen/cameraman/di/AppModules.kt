@@ -13,7 +13,7 @@ import de.leuchtetgruen.cameraman.buildCousteauApi
 import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
 import de.leuchtetgruen.cameraman.businessobjects.TokenProviderImpl
 import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepositoryImpl
-import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.presentation.use_cases.GetShotDescriptions
 import de.leuchtetgruen.cameraman.presentation.use_cases.Login
 import javax.inject.Singleton

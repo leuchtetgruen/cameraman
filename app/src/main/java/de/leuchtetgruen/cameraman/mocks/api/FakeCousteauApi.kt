@@ -1,10 +1,7 @@
 package de.leuchtetgruen.cameraman.mocks.api
 
 import de.leuchtetgruen.cameraman.api.CousteauApi
-import de.leuchtetgruen.cameraman.api.network_model.ApiTokenDto
-import de.leuchtetgruen.cameraman.api.network_model.LoginObjectDto
-import de.leuchtetgruen.cameraman.api.network_model.ShotDescriptionDto
-import de.leuchtetgruen.cameraman.api.network_model.ShotDoneStateObjectDto
+import de.leuchtetgruen.cameraman.api.network_model.*
 import kotlinx.coroutines.delay
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -15,6 +12,9 @@ object FakeCousteauApi : CousteauApi {
 
     var queryingShotDescriptionsShouldSucceed = true
     var shotDescriptionDtos = listOf<ShotDescriptionDto>()
+
+    var queryingSourcesShouldSucceed = true
+    var sourceDtos = listOf<SourceDto>()
 
     override suspend fun login(loginObject: LoginObjectDto): Response<ApiTokenDto> {
         if (shouldDelay) delay(1000)
@@ -46,6 +46,17 @@ object FakeCousteauApi : CousteauApi {
         val errorBody = "{\"code\":401,\"message\":\"Expired JWT token.\"}"
         if (queryingShotDescriptionsShouldSucceed) {
             return Response.success(shotDescriptionDtos)
+        }
+        else {
+            return Response.error(401, ResponseBody.create(null, errorBody))
+        }
+    }
+
+    override suspend fun sources(): Response<List<SourceDto>> {
+        if (shouldDelay) delay(1000)
+        val errorBody = "{\"code\":401,\"message\":\"Expired JWT token.\"}"
+        if (queryingSourcesShouldSucceed) {
+            return Response.success(sourceDtos)
         }
         else {
             return Response.error(401, ResponseBody.create(null, errorBody))

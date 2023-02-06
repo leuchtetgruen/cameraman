@@ -1,7 +1,7 @@
 package de.leuchtetgruen.cameraman.mocks.repository
 
 import de.leuchtetgruen.cameraman.domain.model.ShotDescription
-import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.ShotDescriptionRepository
 
 object FakeShotDescriptionRepository : ShotDescriptionRepository {
 

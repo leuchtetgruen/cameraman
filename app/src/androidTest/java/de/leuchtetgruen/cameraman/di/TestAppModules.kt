@@ -7,7 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
 import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
-import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.mocks.api.FakeCousteauApi
 import de.leuchtetgruen.cameraman.mocks.businessobjects.FakeTokenProvider
 import de.leuchtetgruen.cameraman.mocks.repository.FakeShotDescriptionRepository
