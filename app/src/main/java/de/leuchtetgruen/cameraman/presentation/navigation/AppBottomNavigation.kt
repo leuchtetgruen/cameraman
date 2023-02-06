@@ -27,7 +27,9 @@ fun AppBottomNavigation(navController: NavController) {
         )
 
         BottomNavigationItem(selected = navController.currentDestination?.route == Screen.AddSourceScreen.route,
-            onClick = { /*TODO*/ },
+            onClick = {
+                navigateTo(navController, Screen.AddSourceScreen.route)
+            },
             icon = { Icon(Icons.Filled.MenuBook, contentDescription = "Book")},
             label = { Text("Recherchieren")}
             )

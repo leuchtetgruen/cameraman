@@ -22,4 +22,8 @@ object TestTags {
     const val TAG_DESCRIPTION = "shot_description"
     const val TAG_TODO_BTN = "btn_todo"
     const val TAG_DONE_BTN = "btn_done"
+
+    const val TAG_ADD_SOURCE_TITLE = "add_source_title"
+    const val TAG_SOURCE_TITLE = "source_title_textfield"
+    const val TAG_SOURCE_URL = "source_url"
 }

@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -28,7 +28,7 @@ viewModel: LoginViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier.fillMaxSize().testTag(TestTags.TAG_LOGIN_SCREEN),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = CenterHorizontally
     ) {
 
         viewModel.navController = navController
@@ -80,7 +80,8 @@ viewModel: LoginViewModel = hiltViewModel()) {
         Row(
             Modifier
                 .fillMaxWidth()
-                .padding(16.dp)) {
+                .padding(16.dp)
+                .align(CenterHorizontally)) {
             if (viewModel.loading) {
                 CircularProgressIndicator(modifier = Modifier
                     .padding(16.dp)

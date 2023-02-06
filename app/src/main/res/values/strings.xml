@@ -16,4 +16,8 @@
     <string name="mark_as_todo">Auf nicht erledigt setzen</string>
     <string name="checkmark">Häkchen zur Bestätigung</string>
     <string name="cancel_descr">Symbol zum Löschen</string>
+    <string name="add_source_title">Quelle hinzufügen</string>
+    <string name="title">Titel</string>
+    <string name="url">Web-Adresse</string>
+    <string name="create_source">Quelle erstellen</string>
 </resources>

@@ -10,6 +10,7 @@ import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
 import de.leuchtetgruen.cameraman.presentation.login.LoginScreen
 import de.leuchtetgruen.cameraman.presentation.map.MapScreen
 import de.leuchtetgruen.cameraman.presentation.shot.ShotScreen
+import de.leuchtetgruen.cameraman.presentation.sources.SourceScreen
 
 @Composable
 fun Navigation(tokenProvider: TokenProvider) {
@@ -36,6 +37,9 @@ fun Navigation(tokenProvider: TokenProvider) {
         )) {
             val id = it.arguments?.getString("shot_id") ?: "-0"
             ShotScreen(navController = navController, id = id)
+        }
+        composable(route = Screen.AddSourceScreen.route) {
+            SourceScreen(navController)
         }
     }
 }
