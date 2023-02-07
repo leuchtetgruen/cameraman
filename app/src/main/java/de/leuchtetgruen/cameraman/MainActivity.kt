@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             CameraManTheme {
-                if (loading.value || !error.value.isBlank()) {
+                if (loading.value || error.value.isNotBlank()) {
                     LoadingScreen(loading = loading, error=error)
                 }
                 else {
