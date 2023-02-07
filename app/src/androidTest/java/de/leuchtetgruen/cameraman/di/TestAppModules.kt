@@ -8,6 +8,8 @@ import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
 import de.leuchtetgruen.cameraman.businessobjects.TokenProvider
 import de.leuchtetgruen.cameraman.domain.repository.interfaces.ShotDescriptionRepository
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.SourcesRepository
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.SourcesRepositoryImpl
 import de.leuchtetgruen.cameraman.mocks.api.FakeCousteauApi
 import de.leuchtetgruen.cameraman.mocks.businessobjects.FakeTokenProvider
 import de.leuchtetgruen.cameraman.mocks.repository.FakeShotDescriptionRepository
@@ -47,4 +49,8 @@ class TestAppModules {
     @Provides
     @Singleton
     fun provideTokenProvider() : TokenProvider = FakeTokenProvider
+
+    @Provides
+    @Singleton
+    fun providesSourcesRepositoru(api: CousteauApi) : SourcesRepository = SourcesRepositoryImpl(api) //TODO create FakeSourcesRepository
 }

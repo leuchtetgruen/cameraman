@@ -44,7 +44,9 @@ fun MapContent(
         }
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize().testTag(TestTags.TAG_MAP_SCREEN),
+    Scaffold(modifier = Modifier
+        .fillMaxSize()
+        .testTag(TestTags.TAG_MAP_SCREEN),
         floatingActionButton = {
             FloatingActionButton(onClick = { viewModel.toggleShowAllItems() }) {
                 if (viewModel.showDoneItems.value) {
@@ -87,7 +89,9 @@ fun MapContent(
 
 
         GoogleMap(
-            modifier = Modifier.fillMaxSize().testTag(TestTags.TAG_MAP),
+            modifier = Modifier
+                .fillMaxSize()
+                .testTag(TestTags.TAG_MAP),
             properties = properties,
             uiSettings = uiSettings,
             cameraPositionState = cameraPositionState
@@ -102,7 +106,7 @@ fun MapContent(
                 val shotDescription = it
                 Marker(
                     state = MarkerState(position = LatLng(it.lat, it.lng)),
-                    title = it.title(LocalContext.current),
+                    title = stringResource(id = it.titleStringId()),
                     snippet = it.description,
                     onInfoWindowClick = {
                         coroutineScope.launch {

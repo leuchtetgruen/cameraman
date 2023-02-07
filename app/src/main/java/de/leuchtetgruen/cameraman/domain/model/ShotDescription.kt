@@ -1,6 +1,5 @@
 package de.leuchtetgruen.cameraman.domain.model
 
-import android.content.Context
 import de.leuchtetgruen.cameraman.R
 
 data class ShotDescription(
@@ -21,15 +20,15 @@ data class ShotDescription(
         return linkedMediaUrl != null
     }
 
-    fun title(ctx : Context) : String {
+    fun titleStringId() : Int {
         if (hasLocation()) {
-            return ctx.getString(R.string.on_spot_shot)
+            return R.string.on_spot_shot
         }
 
         if (hasLinkedMedia()) {
-            return ctx.getString(R.string.linked_medium)
+            return R.string.linked_medium
         }
 
-        return ctx.getString(R.string.shot)
+        return R.string.shot
     }
 }

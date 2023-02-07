@@ -71,7 +71,7 @@ class ShotScreenTest {
     fun shows_right_title() {
         val ctx =composeRule.activity.applicationContext
         prepareTodoObject()
-        composeRule.onNodeWithTag(TestTags.TAG_SHOT_TITLE).assertTextContains(objDone.title(ctx))
+        composeRule.onNodeWithTag(TestTags.TAG_SHOT_TITLE).assertTextContains(ctx.getString(objDone.titleStringId()))
     }
 
     @Test

@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,10 +44,9 @@ fun ShotScreen(navController: NavController,
 
             val style = MaterialTheme.typography.h5.copy(fontFamily = FontFamily(fonts = listOf(Font(R.font.rounded))))
 
-            val title = if (viewModel.shotDescription != null) viewModel.shotDescription?.title(
-                LocalContext.current) else LocalContext.current.getString(R.string.shot)
+            val title = stringResource(viewModel.shotDescription!!.titleStringId())
 
-            Text(text = title!!, style = style, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().testTag(TestTags.TAG_SHOT_TITLE))
+            Text(text = title, style = style, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().testTag(TestTags.TAG_SHOT_TITLE))
 
             Spacer(modifier = Modifier.height(30.dp))
 
