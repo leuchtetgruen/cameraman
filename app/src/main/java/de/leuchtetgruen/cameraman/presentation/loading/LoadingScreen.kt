@@ -44,7 +44,7 @@ fun LoadingScreen(loading : MutableState<Boolean>, error : MutableState<String> 
             CircularProgressIndicator(modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_LOADING_INDICATOR))
         }
 
-        if (!error.value.isBlank()) {
+        if (error.value.isNotBlank()) {
             Text(error.value, color = Color.Red, modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_ERROR_MESSAGE))
 
             Text(stringResource(R.string.try_again_later), color = Color.Gray, modifier = Modifier.padding(16.dp).testTag(TestTags.TAG_ERROR_MESSAGE_2))

@@ -2,6 +2,7 @@ package de.leuchtetgruen.cameraman.domain.repository.interfaces
 
 import de.leuchtetgruen.cameraman.api.network_model.SourceDto
 import de.leuchtetgruen.cameraman.domain.model.Source
+import de.leuchtetgruen.cameraman.domain.repository.SourcesRepositoryImpl
 import de.leuchtetgruen.cameraman.mocks.api.FakeCousteauApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert

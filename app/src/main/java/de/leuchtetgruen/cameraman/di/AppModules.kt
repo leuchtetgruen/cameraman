@@ -15,7 +15,7 @@ import de.leuchtetgruen.cameraman.businessobjects.TokenProviderImpl
 import de.leuchtetgruen.cameraman.domain.repository.ShotDescriptionRepositoryImpl
 import de.leuchtetgruen.cameraman.domain.repository.interfaces.ShotDescriptionRepository
 import de.leuchtetgruen.cameraman.domain.repository.interfaces.SourcesRepository
-import de.leuchtetgruen.cameraman.domain.repository.interfaces.SourcesRepositoryImpl
+import de.leuchtetgruen.cameraman.domain.repository.SourcesRepositoryImpl
 import de.leuchtetgruen.cameraman.presentation.use_cases.GetShotDescriptions
 import de.leuchtetgruen.cameraman.presentation.use_cases.Login
 import javax.inject.Singleton

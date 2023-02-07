@@ -1,8 +1,9 @@
-package de.leuchtetgruen.cameraman.domain.repository.interfaces
+package de.leuchtetgruen.cameraman.domain.repository
 
 import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.network_model.SourceDto
 import de.leuchtetgruen.cameraman.domain.model.Source
+import de.leuchtetgruen.cameraman.domain.repository.interfaces.SourcesRepository
 
 class SourcesRepositoryImpl(val api: CousteauApi) : SourcesRepository {
     override suspend fun loadSources(): List<Source> {

@@ -66,7 +66,7 @@ fun MapContent(
         floatingActionButtonPosition = FabPosition.End,
         bottomBar = { AppBottomNavigation(navController) }
     ) {
-        System.out.println(it)
+        println(it)
 
         val uiSettings by remember {
             mutableStateOf(
@@ -102,12 +102,11 @@ fun MapContent(
 
 
 
-            viewModel.shotDescriptions.forEach {
-                val shotDescription = it
+            viewModel.shotDescriptions.forEach { shotDescription ->
                 Marker(
-                    state = MarkerState(position = LatLng(it.lat, it.lng)),
-                    title = stringResource(id = it.titleStringId()),
-                    snippet = it.description,
+                    state = MarkerState(position = LatLng(shotDescription.lat, shotDescription.lng)),
+                    title = stringResource(id = shotDescription.titleStringId()),
+                    snippet = shotDescription.description,
                     onInfoWindowClick = {
                         coroutineScope.launch {
                             viewModel.selectedShotOnMap(shotDescription)
