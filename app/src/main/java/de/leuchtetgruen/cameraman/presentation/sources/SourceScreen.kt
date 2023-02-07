@@ -26,7 +26,7 @@ import de.leuchtetgruen.cameraman.util.TestTags
 fun SourceScreen(navController: NavController,
                  viewModel: SourceScreenViewModel = hiltViewModel()) {
     Scaffold(bottomBar = { AppBottomNavigation(navController) }) {
-        System.out.println(it)
+        println(it)
 
         val ctx = LocalContext.current
         LaunchedEffect(Unit) {
@@ -46,7 +46,7 @@ fun SourceScreen(navController: NavController,
 
             OutlinedTextField(
                 value = viewModel.title,
-                onValueChange = { viewModel.title = it },
+                onValueChange = { title -> viewModel.title =  title },
                 label = { Text(stringResource(R.string.title)) },
                 placeholder = { Text(stringResource(R.string.title))},
                 modifier = Modifier
@@ -61,7 +61,7 @@ fun SourceScreen(navController: NavController,
 
             OutlinedTextField(
                 value = viewModel.url,
-                onValueChange = { viewModel.url = it },
+                onValueChange = { url -> viewModel.url = url },
                 label = { Text(stringResource(R.string.url)) },
                 placeholder = { Text(stringResource(R.string.url))},
                 modifier = Modifier
