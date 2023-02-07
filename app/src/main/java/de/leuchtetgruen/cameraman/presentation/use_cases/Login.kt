@@ -1,6 +1,5 @@
 package de.leuchtetgruen.cameraman.presentation.use_cases
 
-import android.content.Context
 import de.leuchtetgruen.cameraman.api.CousteauApi
 import de.leuchtetgruen.cameraman.api.RuntimeTokenStore
 import de.leuchtetgruen.cameraman.api.network_model.LoginObjectDto
@@ -9,7 +8,7 @@ import javax.inject.Inject
 
 class Login @Inject constructor(val api : CousteauApi, val runtimeTokenStore: RuntimeTokenStore, val tokenProvider: TokenProvider) {
 
-    suspend operator fun invoke(username : String, password: String, context: Context) : Boolean {
+    suspend operator fun invoke(username: String, password: String) : Boolean {
         val apiTokenResponse =  api.login(LoginObjectDto(username, password))
 
         if (apiTokenResponse.errorBody() != null) {
