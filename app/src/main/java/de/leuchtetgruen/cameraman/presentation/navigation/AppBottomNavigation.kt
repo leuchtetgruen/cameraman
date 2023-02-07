@@ -9,9 +9,11 @@ import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import de.leuchtetgruen.cameraman.R
 import de.leuchtetgruen.cameraman.navigation.Screen
 
 @Composable
@@ -23,7 +25,7 @@ fun AppBottomNavigation(navController: NavController) {
                 navigateTo(navController, Screen.MapScreen.route)
             },
             icon = { Icon(Icons.Filled.PhotoCamera, contentDescription = "Camera") },
-            label = { Text("Filmen")}
+            label = { Text(stringResource(R.string.bottom_bar_tab_record_title))}
         )
 
         BottomNavigationItem(selected = navController.currentDestination?.route == Screen.AddSourceScreen.route,
@@ -31,13 +33,13 @@ fun AppBottomNavigation(navController: NavController) {
                 navigateTo(navController, Screen.AddSourceScreen.route)
             },
             icon = { Icon(Icons.Filled.MenuBook, contentDescription = "Book")},
-            label = { Text("Recherchieren")}
+            label = { Text(stringResource(R.string.bottom_bar_tab_research_title))}
             )
 
         BottomNavigationItem(selected = navController.currentDestination?.route == Screen.ShowScriptsScreen.route,
             onClick = { /*TODO*/ },
             icon = { Icon(Icons.Default.Mic, contentDescription = "Microphone")},
-            label = { Text("Einsprechen")}
+            label = { Text(stringResource(R.string.bottom_bar_tab_voiceover_title))}
         )
     }
 }

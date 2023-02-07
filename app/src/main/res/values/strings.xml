@@ -24,4 +24,7 @@
     <string name="error_title_invalid">Titel ungültig</string>
     <string name="error_url_invalid">URL ungültig</string>
     <string name="create_source_success">Quelle erstellt</string>
+    <string name="bottom_bar_tab_record_title">Filmen</string>
+    <string name="bottom_bar_tab_research_title">Recherchieren</string>
+    <string name="bottom_bar_tab_voiceover_title">Einsprechen</string>
 </resources>
